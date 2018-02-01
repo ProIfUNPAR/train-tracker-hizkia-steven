@@ -6,13 +6,75 @@
     android:layout_height="match_parent"
     tools:context="com.example.hizkia.train_tracker_kv2.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+    <Button
+        android:id="@+id/btnDirections"
+        android:layout_width="184dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="22dp"
+        android:text="DIRECTIONS"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/btnRoutes"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnRoutes"
+        android:layout_width="184dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="448dp"
+        android:text="ROUTES"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnDirections"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="91dp"
+        android:layout_height="27dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="22dp"
+        android:text="@string/current"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerCurrent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDirections" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/destination"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerDestination"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Spinner
+        android:id="@+id/spinnerCurrent"
+        android:layout_width="235dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDirections" />
+
+    <Spinner
+        android:id="@+id/spinnerDestination"
+        android:layout_width="235dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCurrent"
+        tools:ignore="RtlCompat" />
 
 </android.support.constraint.ConstraintLayout>

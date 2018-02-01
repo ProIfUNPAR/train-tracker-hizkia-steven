@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">train-tracker-kV2</string>
+    <string name="current">Current</string>
+    <string name="destination">Destination</string>
+    <string-array name="listCurrent">
+        <item>Bandung</item>
+        <item>Cirebon</item>
+    </string-array>
+
+    <string-array name="listDestination">
+        <item>Bandung</item>
+        <item>Cirebon</item>
+    </string-array>
 </resources>
