@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.hizkia.train_tracker_kv2.MainActivity">
+
+
+    <Button
+        android:id="@+id/btnDirections"
+        android:layout_width="184dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="17dp"
+        android:onClick="btnDirectionsClicked"
+        android:text="@string/directions"
+        app:layout_constraintBottom_toTopOf="@+id/btn1Routes"
+        app:layout_constraintEnd_toStartOf="@+id/btnRoutes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnRoutes"
+        android:layout_width="184dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="17dp"
+        android:text="@string/routes"
+        app:layout_constraintBottom_toTopOf="@+id/btn1Routes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnDirections"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <Button
+        android:id="@+id/btn1Routes"
+        android:layout_width="360dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="kota - kota"
+        android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDirections" />
+
+
+    <Button
+        android:id="@+id/btn2Routes"
+        android:layout_width="360dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="308dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:text="kota - kota"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn1Routes"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</android.support.constraint.ConstraintLayout>
