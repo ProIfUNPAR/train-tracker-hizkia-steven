@@ -36,4 +36,9 @@ public class MainActivity extends AppCompatActivity {
         Intent openRoutes = new Intent(this, Routes.class);
         startActivity(openRoutes);
     }
+
+    public void btnGoClicked(View view) {
+        Intent openMap = new Intent(this, MapsActivity.class);
+        startActivity(openMap);
+    }
 }
