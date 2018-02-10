@@ -21,6 +21,7 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
     private Button btnGoMap;
+    private Button btnBack;
     protected Spinner spCurr, spDest;
 
     @Override
@@ -31,12 +32,14 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
 
         //SET ID FROM LAYOUT START
         this.btnGoMap = this.findViewById(R.id.btnGoMap);
+        this.btnBack = this.findViewById(R.id.btnBack);
         this.spCurr = this.findViewById(R.id.spinnerCurrent);
         this.spDest = this.findViewById(R.id.spinnerDestination);
         //SET ID FROM LAYOUT END
 
         //SET LISTENER START
         btnGoMap.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
         //SET LISTENER END
 
         //SET ALL ADAPTER START
@@ -61,6 +64,10 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
         //Button Go Clicked
         if(view.getId() == btnGoMap.getId()) {
             Intent intent = new Intent(TracksActivity.this, MapsActivity.class);
+            startActivity(intent);
+        }
+        else if(view.getId() == btnBack.getId()){
+            Intent intent = new Intent(TracksActivity.this, MainActivity.class);
             startActivity(intent);
         }
 
@@ -88,8 +95,4 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
         return false;
     }
 
-    public void btnBackClicked(View view) {
-        Intent backToTrains = new Intent(this, MainActivity.class);
-        startActivity(backToTrains);
-    }
 }
