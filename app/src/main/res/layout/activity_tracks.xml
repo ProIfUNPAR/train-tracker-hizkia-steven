@@ -65,7 +65,7 @@
         android:layout_marginRight="15dp"/>
 
     <Button
-        android:id="@+id/btnGo"
+        android:id="@+id/btnGoMap"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

@@ -3,9 +3,10 @@ package com.example.hizkia.train_tracker_kv2;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+
 import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         //Untuk eksekutif nama-nama keretanya seperti Argo Jati, Argo Wilis, Sembrani, dll
         Spinner spTrains = (Spinner) findViewById(R.id.spinnerTrains);
 
+        //Adapter for list of Trains
         ArrayAdapter<String> trainsAdapter = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.listOfTrains));
         trainsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -28,4 +30,5 @@ public class MainActivity extends AppCompatActivity {
         Intent openTracks = new Intent(this, TracksActivity.class);
         startActivity(openTracks);
     }
+
 }

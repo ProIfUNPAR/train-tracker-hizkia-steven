@@ -1,21 +1,22 @@
 <resources>
-    <string name="app_name">train-tracker-kV2</string>
+    <string name="app_name">train_tracker_kV2</string>
     <string name="current">Current</string>
     <string name="destination">Destination</string>
-    <string name="directions">DIRECTIONS</string>
-    <string name="routes">ROUTES</string>
+    <string name="google_maps_api_key">AIzaSyCyz3OcWxsxZZFyAJZ-lL_9evMRKWwD72g</string>
+
     <string-array name="listOfTrains">
         <item>Argo Jati</item>
         <item>Argo Wilis</item>
     </string-array>
 
-    <string-array name="listOfFrom">
+    <string-array name="listCurrent">
         <item>Gambir</item>
+        <item>Bandung</item>
         <item>Cirebon</item>
         <item>Malang</item>
     </string-array>
 
-    <string-array name="listOfTo">
+    <string-array name="listDestination">
         <item>Gambir</item>
         <item>Cirebon</item>
         <item>Malang</item>

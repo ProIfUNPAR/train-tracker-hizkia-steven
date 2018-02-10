@@ -3,9 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\AndroidStudioProjects\train_tracker_kV2\train-tracker-kV2.iml" filepath="D:\AndroidStudioProjects\train_tracker_kV2\train-tracker-kV2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/train_tracker_kV2.iml" filepath="$PROJECT_DIR$/train_tracker_kV2.iml" />
-      <module fileurl="file://D:\ASUS\Documents\Thoby\Projects\train-tracker-kV2\traintracker-kV2.iml" filepath="D:\ASUS\Documents\Thoby\Projects\train-tracker-kV2\traintracker-kV2.iml" />
+
+      <module fileurl="file://$PROJECT_DIR$/train_tracker_kV2.iml" filepath="$PROJECT_DIR$/train_tracker_kV2.iml" />     
     </modules>
   </component>
 </project>
