@@ -9,30 +9,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
-
-    private static final int ERROR_DIALOG_REQUEST = 9001;
-
-    private Button btnGoMap;
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Button btnDir = (Button) findViewById(R.id.btnDirections);
-        btnDir.setEnabled(false);
-
-        Spinner curr = (Spinner) findViewById(R.id.spinnerCurrent);
-
 
         //Untuk eksekutif nama-nama keretanya seperti Argo Jati, Argo Wilis, Sembrani, dll
         Spinner spTrains = (Spinner) findViewById(R.id.spinnerTrains);

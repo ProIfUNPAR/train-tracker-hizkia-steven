@@ -29,7 +29,7 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
 
         this.btnGoMap = this.findViewById(R.id.btnGoMap);
 
-        Spinner spCurr = (Spinner) findViewById(R.id.spinnerFrom);
+        Spinner spCurr = (Spinner) findViewById(R.id.spinnerCurrent);
 
         ArrayAdapter<String> currAdapt = new ArrayAdapter<String>(TracksActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.listCurrent));
