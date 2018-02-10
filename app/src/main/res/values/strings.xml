@@ -2,6 +2,7 @@
     <string name="app_name">train_tracker_kV2</string>
     <string name="current">Current</string>
     <string name="destination">Destination</string>
+
     <string name="google_maps_api_key">AIzaSyCyz3OcWxsxZZFyAJZ-lL_9evMRKWwD72g</string>
 
     <string-array name="listOfTrains">
