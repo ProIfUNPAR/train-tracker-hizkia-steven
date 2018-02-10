@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.hizkia.train_tracker_kv2.TracksActivity">
 
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

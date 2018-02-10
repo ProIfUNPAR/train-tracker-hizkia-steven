@@ -20,37 +20,52 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
-    protected Button btnGoMap;
+    private Button btnGoMap;
+    protected Spinner spCurr, spDest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracks);
 
+
+        //SET ID FROM LAYOUT START
         this.btnGoMap = this.findViewById(R.id.btnGoMap);
+        this.spCurr = this.findViewById(R.id.spinnerCurrent);
+        this.spDest = this.findViewById(R.id.spinnerDestination);
+        //SET ID FROM LAYOUT END
 
-        Spinner spCurr = (Spinner) findViewById(R.id.spinnerCurrent);
+        //SET LISTENER START
+        btnGoMap.setOnClickListener(this);
+        //SET LISTENER END
 
+        //SET ALL ADAPTER START
+            //Adapter for current station
         ArrayAdapter<String> currAdapt = new ArrayAdapter<String>(TracksActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.listCurrent));
         currAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCurr.setAdapter(currAdapt);
 
-        Spinner spDest = (Spinner) findViewById(R.id.spinnerDestination);
-
+            //Adapter for destination station
         ArrayAdapter<String> destAdapt = new ArrayAdapter<String>(TracksActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.listDestination));
         destAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spDest.setAdapter(destAdapt);
+        //SET ALL ADAPTER END
     }
 
+    //PUT EVERY ONCLICK FUNCTION HERE
+    //ONCLICK FUNCTION START
     @Override
     public void onClick(View view) {
+        //Button Go Clicked
         if(view.getId() == btnGoMap.getId()) {
             Intent intent = new Intent(TracksActivity.this, MapsActivity.class);
             startActivity(intent);
         }
+
     }
+    //ONCLICK FUNCTION END
 
     public boolean isServicesOK() {
         Log.d(TAG, "isServicesOK: checking google services version");
