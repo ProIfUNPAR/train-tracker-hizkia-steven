@@ -4,14 +4,22 @@
     <string name="destination">Destination</string>
     <string name="directions">DIRECTIONS</string>
     <string name="routes">ROUTES</string>
-    <string-array name="listCurrent">
-        <item>Bandung</item>
-        <item>Cirebon</item>
+    <string-array name="listOfTrains">
+        <item>Argo Jati</item>
+        <item>Argo Wilis</item>
     </string-array>
 
-    <string-array name="listDestination">
-        <item>Bandung</item>
+    <string-array name="listOfFrom">
+        <item>Gambir</item>
         <item>Cirebon</item>
+        <item>Malang</item>
     </string-array>
+
+    <string-array name="listOfTo">
+        <item>Gambir</item>
+        <item>Cirebon</item>
+        <item>Malang</item>
+    </string-array>
+
     <string name="title_activity_maps">Map</string>
 </resources>

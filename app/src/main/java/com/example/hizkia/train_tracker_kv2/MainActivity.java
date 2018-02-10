@@ -14,31 +14,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btnDir = (Button) findViewById(R.id.btnDirections);
-        btnDir.setEnabled(false);
 
-        Spinner curr = (Spinner) findViewById(R.id.spinnerCurrent);
+        //Untuk eksekutif nama-nama keretanya seperti Argo Jati, Argo Wilis, Sembrani, dll
+        Spinner spTrains = (Spinner) findViewById(R.id.spinnerTrains);
 
-        ArrayAdapter<String> currAdapter = new ArrayAdapter<String>(MainActivity.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.listCurrent));
-        currAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        curr.setAdapter(currAdapter);
-
-        Spinner dest = (Spinner) findViewById(R.id.spinnerDestination);
-
-        ArrayAdapter<String> destAdapter = new ArrayAdapter<String>(MainActivity.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.listDestination));
-        destAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dest.setAdapter(destAdapter);
+        ArrayAdapter<String> trainsAdapter = new ArrayAdapter<String>(MainActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.listOfTrains));
+        trainsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spTrains.setAdapter(trainsAdapter);
     }
 
-    public void btnRoutesClicked(View view) {
-        Intent openRoutes = new Intent(this, Routes.class);
-        startActivity(openRoutes);
-    }
-
-    public void btnGoClicked(View view) {
-        Intent openMap = new Intent(this, MapsActivity.class);
-        startActivity(openMap);
+    public void btnNextClicked(View view) {
+        Intent openTracks = new Intent(this, TracksActivity.class);
+        startActivity(openTracks);
     }
 }

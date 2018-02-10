@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.hizkia.train_tracker_kv2.TracksActivity">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Train Name"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@id/textView"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:text="From"
+        android:textColor="@android:color/black" />
+
+    <Spinner
+        android:id="@+id/spinnerFrom"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textFrom"
+        android:layout_toRightOf="@id/textFrom"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="-3dp" />
+
+    <TextView
+        android:id="@+id/textTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textFrom"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/spinnerFrom"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:text="To"
+        android:textColor="@android:color/black" />
+
+    <Spinner
+        android:id="@+id/spinnerTo"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/textTo"
+        android:layout_alignTop="@+id/textTo"
+        android:layout_marginTop="-3dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="15dp"/>
+
+    <Button
+        android:id="@+id/btnGo"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/spinnerTo"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="50dp"
+        android:text="GO" />
+</RelativeLayout>
