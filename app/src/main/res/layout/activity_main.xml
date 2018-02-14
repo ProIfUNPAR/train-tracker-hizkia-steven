@@ -38,7 +38,6 @@
         android:layout_below="@+id/spinnerTrains"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
-        android:onClick="btnNextClicked"
         android:text="NEXT" />
 
 </RelativeLayout>

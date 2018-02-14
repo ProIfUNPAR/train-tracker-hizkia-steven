@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected Button btnNext;
     protected Spinner spTrains;
-
+    protected String[] listOfTrains;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,19 +28,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //SET ID FROM LAYOUT START
         this.btnNext = this.findViewById(R.id.btnNext);
-            //Data examples for list of trains : Argo Jati, Argo Wilis, Sembrani, etc
-        this.spTrains = this.findViewById(R.id.spinnerTrains);
+        //Untuk eksekutif nama-nama keretanya seperti Argo Jati, Argo Wilis, Sembrani, dll
+        this.spTrains = findViewById(R.id.spinnerTrains);
         //SET ID FROM LAYOUT END
 
         //SET LISTENER START
         this.btnNext.setOnClickListener(this);
         //SET LISTENER END
 
+        //GET NAMES OF ALL THE TRAINS WHICH HAVE A TRACK
+        Database db = new Database();
+        this.listOfTrains = db.getListOfTrains();
+
         //SET ALL ADAPTER START
-            //Adapter for list of Trains
+        //Adapter for list of Trains
         ArrayAdapter<String> trainsAdapter = new ArrayAdapter<String>(MainActivity.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.listOfTrains));
-        trainsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                android.R.layout.simple_spinner_item,this.listOfTrains);
+        //trainsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTrains.setAdapter(trainsAdapter);
         //SET ALL ADAPTER END
 

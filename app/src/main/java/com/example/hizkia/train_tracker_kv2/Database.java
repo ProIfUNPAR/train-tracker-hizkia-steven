@@ -9,16 +9,26 @@ import java.util.HashMap;
  */
 
 public class Database {
-    private ArrayList<Train> trains;
+    //private ArrayList<Train> trains;
     private HashMap <String,Station> stationInfo;
+    private HashMap <String,Train> trainInfo;
+    private String[] listOfTrains;
+    private int ctList; // counter for number of trains
 
     public Database(){
-        this.trains = new ArrayList<>();
+        //this.trains = new ArrayList<>();
+        this.listOfTrains = new String [2]; // initial value : set length of list is 50 trains
+        this.ctList = 0;
         this.stationInfo = new HashMap<>();
+        this.trainInfo = new HashMap<>();
         //Station
-
+        initStation();
         //train
+        initTrain();
+    }
 
+    public String[] getListOfTrains(){
+        return this.listOfTrains;
     }
 
     public void initStation (){
@@ -67,7 +77,9 @@ public class Database {
         ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stPurwakarta"));
         ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stCimahi"));
         ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stBandung"));
-        trains.add(ciremaiBandung_SemarangTawang);
+        this.trainInfo.put("ciremaiBandung_SemarangTawang",ciremaiBandung_SemarangTawang);
+        this.listOfTrains[ctList++] = "ciremaiBandung_SemarangTawang";
+
 
         //train testing
         Train testing = new Train ("testingTrain");
@@ -79,6 +91,7 @@ public class Database {
         testing.addDepartureTrack((stationInfo.get("stCiwalk")));
         testing.addDepartureTrack((stationInfo.get("stUnpar")));
 
-        trains.add(testing);
+        this.trainInfo.put("testing",testing);
+        this.listOfTrains[ctList++] = "testing";
     }
 }
