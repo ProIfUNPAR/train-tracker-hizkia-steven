@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //SET ID FROM LAYOUT START
         this.btnNext = this.findViewById(R.id.btnNext);
-            //Untuk eksekutif nama-nama keretanya seperti Argo Jati, Argo Wilis, Sembrani, dll
+            //Data examples for list of trains : Argo Jati, Argo Wilis, Sembrani, etc
         this.spTrains = this.findViewById(R.id.spinnerTrains);
         //SET ID FROM LAYOUT END
 
