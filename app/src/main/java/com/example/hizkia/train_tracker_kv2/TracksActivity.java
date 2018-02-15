@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
+import java.util.ArrayList;
+
 public class TracksActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "TracksActivity";
@@ -42,16 +44,26 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
         btnBack.setOnClickListener(this);
         //SET LISTENER END
 
+        //GET list of stations from the chosen train
+        Database db = new Database();
+        ArrayList<Station> listStations = db.getTrainInfo(MainActivity.activeTrain).arrivalTrack;
+        //move each name of station on list stations to array of string
+        String[] arrStation = new String[listStations.size()];
+        int i;
+        for(i=0; i<arrStation.length; i++){
+            arrStation[i] = listStations.get(i).getNamaStasiun();
+        }
+
         //SET ALL ADAPTER START
             //Adapter for current station
         ArrayAdapter<String> currAdapt = new ArrayAdapter<String>(TracksActivity.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.listCurrent));
+                android.R.layout.simple_spinner_item,arrStation);
         currAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCurr.setAdapter(currAdapt);
 
             //Adapter for destination station
         ArrayAdapter<String> destAdapt = new ArrayAdapter<String>(TracksActivity.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.listDestination));
+                android.R.layout.simple_spinner_item,arrStation);
         destAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spDest.setAdapter(destAdapt);
         //SET ALL ADAPTER END

@@ -27,6 +27,13 @@ public class Database {
         initTrain();
     }
 
+    public Station getStationInfo (String nameOfStation){
+        return this.stationInfo.get(nameOfStation);
+    }
+    public Train getTrainInfo (String nameOfTrain){
+        return this.trainInfo.get(nameOfTrain);
+    }
+
     public String[] getListOfTrains(){
         return this.listOfTrains;
     }

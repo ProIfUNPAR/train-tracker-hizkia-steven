@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.support.annotation.MainThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.StaticLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected Button btnNext;
     protected Spinner spTrains;
     protected String[] listOfTrains;
+    public static String activeTrain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Adapter for list of Trains
         ArrayAdapter<String> trainsAdapter = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_spinner_item,this.listOfTrains);
-        //trainsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        trainsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTrains.setAdapter(trainsAdapter);
         //SET ALL ADAPTER END
-
     }
 
     //PUT EVERY ONCLICK FUNCTION HERE
@@ -55,7 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         //Button Next Clicked
+        //Go to Tracks page
         if(view.getId() == btnNext.getId()){
+            String text = spTrains.getSelectedItem().toString();
+            System.out.println(text);
+            activeTrain = text;
+
             Intent openTracks = new Intent(this, TracksActivity.class);
             startActivity(openTracks);
         }
