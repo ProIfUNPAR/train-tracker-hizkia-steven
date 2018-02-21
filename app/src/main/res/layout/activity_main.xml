@@ -30,13 +30,61 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="30dp" />
 
+    <TextView
+        android:id="@+id/textKeterangan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/spinnerTrains"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Choose your start-end point :"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textKeterangan"
+        android:layout_marginTop="5dp">
+
+        <RadioButton
+            android:id="@+id/rbStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textKeterangan"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="Awal - Akhir"
+            android:checked="true"
+            android:onClick="rbClicked"/>
+
+        <RadioButton
+            android:id="@+id/rbEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignStart="@+id/rbStart"
+            android:layout_below="@+id/rbStart"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:text="Akhir - Awal"
+            android:checked="false"
+            android:onClick="rbClicked"/>
+    </RadioGroup>
+
     <Button
         android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/spinnerTrains"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="180dp"
         android:layout_marginRight="20dp"
         android:text="NEXT" />
 

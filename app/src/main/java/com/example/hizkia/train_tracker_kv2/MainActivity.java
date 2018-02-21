@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,8 @@ import com.google.android.gms.common.GoogleApiAvailability;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    protected RadioGroup rbGroup;
+    protected RadioButton radioButton;
     protected Button btnNext;
     protected Spinner spTrains;
     protected String[] listOfTrains;
@@ -31,8 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         //SET ID FROM LAYOUT START
-        this.btnNext = this.findViewById(R.id.btnNext);
-        //Untuk eksekutif nama-nama keretanya seperti Argo Jati, Argo Wilis, Sembrani, dll
+        this.btnNext = findViewById(R.id.btnNext);
+        this.rbGroup = (RadioGroup)findViewById(R.id.radioGroup);
         this.spTrains = findViewById(R.id.spinnerTrains);
         //SET ID FROM LAYOUT END
 
@@ -69,5 +73,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     //ONCLICK FUNCTION END
+
+    //RADIO BUTTON FUNCTION START
+    public void rbClicked(View v){
+        int idRadio = rbGroup.getCheckedRadioButtonId();
+        this.radioButton = (RadioButton)findViewById(idRadio);
+    }
+    //RADIO BUTTON FUNCTION END
 
 }
