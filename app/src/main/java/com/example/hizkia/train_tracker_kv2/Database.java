@@ -62,28 +62,28 @@ public class Database {
     public void initTrain(){
         //Ciremai(Bandung - Semarang Tawang)
         Train ciremaiBandung_SemarangTawang = new Train("ciremaiBandung_SemarangTawang");
-        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stBandung"));
-        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stCimahi"));
-        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stPurwakarta"));
-        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stCikampek"));
-        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stHaurgeulis"));
-        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stJatibarang"));
-        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stCirebon"));
-        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stTegal"));
-        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stPekalongan"));
-        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stSemarangTawang"));
-
-        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stSemarangTawang"));
-        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stSemarangPoncol"));
-        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stPekalongan"));
-        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stTegal"));
-        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stCirebon"));
-        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stJatibarang"));
-        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stHaurgeulis"));
-        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stCikampek"));
-        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stPurwakarta"));
-        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stCimahi"));
         ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stBandung"));
+        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stCimahi"));
+        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stPurwakarta"));
+        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stCikampek"));
+        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stHaurgeulis"));
+        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stJatibarang"));
+        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stCirebon"));
+        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stTegal"));
+        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stPekalongan"));
+        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("stSemarangTawang"));
+
+        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stSemarangTawang"));
+        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stSemarangPoncol"));
+        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stPekalongan"));
+        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stTegal"));
+        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stCirebon"));
+        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stJatibarang"));
+        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stHaurgeulis"));
+        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stCikampek"));
+        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stPurwakarta"));
+        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stCimahi"));
+        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("stBandung"));
         this.trainInfo.put("ciremaiBandung_SemarangTawang",ciremaiBandung_SemarangTawang);
         this.listOfTrains[ctList++] = "ciremaiBandung_SemarangTawang";
 

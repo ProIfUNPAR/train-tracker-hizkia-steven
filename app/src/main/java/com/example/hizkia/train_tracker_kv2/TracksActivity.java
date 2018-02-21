@@ -46,7 +46,13 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
 
         //GET list of stations from the chosen train
         Database db = new Database();
-        ArrayList<Station> listStations = db.getTrainInfo(MainActivity.activeTrain).arrivalTrack;
+        ArrayList<Station>  listStations;
+        if(MainActivity.isArrival){
+            listStations = db.getTrainInfo(MainActivity.activeTrain).arrivalTrack;
+        }else{
+            listStations = db.getTrainInfo(MainActivity.activeTrain).departureTrack;
+        }
+
         //move each name of station on list stations to array of string
         String[] arrStation = new String[listStations.size()];
         int i;

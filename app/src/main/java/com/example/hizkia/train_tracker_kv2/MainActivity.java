@@ -23,11 +23,12 @@ import com.google.android.gms.common.GoogleApiAvailability;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     protected RadioGroup rbGroup;
-    protected RadioButton radioButton;
+    protected RadioButton rbStart, rbEnd;
     protected Button btnNext;
     protected Spinner spTrains;
     protected String[] listOfTrains;
     public static String activeTrain;
+    public static boolean isArrival;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.btnNext = findViewById(R.id.btnNext);
         this.rbGroup = (RadioGroup)findViewById(R.id.radioGroup);
         this.spTrains = findViewById(R.id.spinnerTrains);
+        this.rbStart = findViewById(R.id.rbStart);
+        this.rbEnd = findViewById(R.id.rbEnd);
         //SET ID FROM LAYOUT END
 
         //SET LISTENER START
@@ -55,6 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         trainsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTrains.setAdapter(trainsAdapter);
         //SET ALL ADAPTER END
+
+        //SET INITIAL RADIO BUTTON
+        this.rbStart.setChecked(true);
+        this.rbEnd.setChecked(false);
+        //SET INITIAL ATTRIBUTE isArrival
+        isArrival = false;
     }
 
     //PUT EVERY ONCLICK FUNCTION HERE
@@ -75,9 +84,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //ONCLICK FUNCTION END
 
     //RADIO BUTTON FUNCTION START
-    public void rbClicked(View v){
-        int idRadio = rbGroup.getCheckedRadioButtonId();
-        this.radioButton = (RadioButton)findViewById(idRadio);
+    public void rbClicked(View view){
+        //int idRadio = rbGroup.getCheckedRadioButtonId();
+        //this.radioButton = (RadioButton)findViewById(idRadio);
+
+        boolean checked = ((RadioButton)view).isChecked();
+
+        switch(view.getId()){
+            case R.id.rbStart:
+                if(checked)
+                isArrival = false;
+                break;
+            case R.id.rbEnd:
+                if(checked)
+                isArrival = true;
+                break;
+        }
     }
     //RADIO BUTTON FUNCTION END
 

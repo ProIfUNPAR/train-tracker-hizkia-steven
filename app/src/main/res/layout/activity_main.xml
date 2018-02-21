@@ -60,7 +60,6 @@
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:text="Awal - Akhir"
-            android:checked="true"
             android:onClick="rbClicked"/>
 
         <RadioButton
@@ -74,7 +73,6 @@
             android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:text="Akhir - Awal"
-            android:checked="false"
             android:onClick="rbClicked"/>
     </RadioGroup>
 
