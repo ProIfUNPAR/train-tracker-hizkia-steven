@@ -1,8 +1,11 @@
 package com.example.hizkia.train_tracker_kv2;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -42,6 +45,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         getLocationPermission();
+
     }
 
     @Override
@@ -62,7 +66,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void getDeviceLocation(){
         Log.d(TAG, "getDeviceLocation: getting current device location");
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        /*fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         try {
             if(locationPermissionGranted){
@@ -85,6 +89,35 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } catch (SecurityException e){
             Log.e(TAG, "getDeviceLocation(): SecurityException: " + e.getMessage());
         }
+        */
+
+        LocationManager locManager = (LocationManager) this
+                .getSystemService(Context.LOCATION_SERVICE);
+        LocationListener locListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                location.getLatitude();
+                Toast.makeText(getApplicationContext(), "Current speed:" + location.getSpeed(),
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+
+            }
+        };
+        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100,
+                10, locListener);
     }
 
     private void moveCamera(LatLng latLng, float zoom){
@@ -104,8 +137,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if(ContextCompat.checkSelfPermission(this.getApplicationContext(), FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             if(ContextCompat.checkSelfPermission(this.getApplicationContext(), COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                     locationPermissionGranted = true;
-                     initMap();
+                locationPermissionGranted = true;
+                initMap();
             } else {
                 ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_REQ_CODE);
             }
