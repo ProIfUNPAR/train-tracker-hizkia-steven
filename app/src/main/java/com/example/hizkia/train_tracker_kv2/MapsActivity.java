@@ -66,7 +66,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void getDeviceLocation(){
         Log.d(TAG, "getDeviceLocation: getting current device location");
-        /*fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         try {
             if(locationPermissionGranted){
@@ -78,48 +78,46 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Log.d(TAG, "onComplete: location found");
                             Location currLocation = (Location) task.getResult();
                             moveCamera(new LatLng(currLocation.getLatitude(), currLocation.getLongitude()), DEFAULT_ZOOM);
-
                         } else {
                             Log.d(TAG, "onComplete: current location is null");
                             Toast.makeText(MapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
+                LocationManager locManager = (LocationManager) this
+                        .getSystemService(Context.LOCATION_SERVICE);
+                LocationListener locListener = new LocationListener() {
+
+                    @Override
+                    public void onLocationChanged(Location location) {
+                        location.getLatitude();
+                        Toast.makeText(getApplicationContext(), "Current speed:" + location.getSpeed(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+                    }
+
+                    @Override
+                    public void onProviderEnabled(String s) {
+
+                    }
+
+                    @Override
+                    public void onProviderDisabled(String s) {
+
+                    }
+                };
+
+                locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100,
+                        10, locListener);
             }
         } catch (SecurityException e){
             Log.e(TAG, "getDeviceLocation(): SecurityException: " + e.getMessage());
         }
-        */
-
-        LocationManager locManager = (LocationManager) this
-                .getSystemService(Context.LOCATION_SERVICE);
-        LocationListener locListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                location.getLatitude();
-                Toast.makeText(getApplicationContext(), "Current speed:" + location.getSpeed(),
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String s) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String s) {
-
-            }
-        };
-        if(ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100,
-                10, locListener);
     }
 
     private void moveCamera(LatLng latLng, float zoom){
