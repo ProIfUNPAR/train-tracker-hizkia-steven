@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //SET ID FROM LAYOUT START
         this.btnNext = findViewById(R.id.btnNext);
-        this.rbGroup = (RadioGroup)findViewById(R.id.radioGroup);
         this.spTrains = findViewById(R.id.spinnerTrains);
         this.rbStart = findViewById(R.id.rbStart);
         this.rbEnd = findViewById(R.id.rbEnd);
