@@ -39,7 +39,7 @@
 
         <RelativeLayout
             android:id="@+id/layoutDistance"
-            android:layout_width="match_parent"
+            android:layout_width="128dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -69,26 +69,72 @@
                 android:textColor="@android:color/black" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/textETA"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textSpeed"
-            android:layout_alignBottom="@+id/textSpeed"
+        <RelativeLayout
+            android:id="@+id/layoutETA"
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="141dp"
-            android:text="ETA"
-            android:textColor="@android:color/black" />
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="128dp"
+            android:layout_marginStart="128dp"
+            android:layout_marginTop="50dp">
 
-        <TextView
-            android:id="@+id/textSpeed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="71dp"
-            android:layout_toEndOf="@+id/textETA"
-            android:text="Speed"
-            android:textColor="@android:color/black" />
+            <TextView
+                android:id="@+id/textETA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="15dp"
+                android:text="ETA"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/valueETA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textETA"
+                android:layout_below="@+id/textETA"
+                android:text="xx H xx M xx S"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="21dp"
+                android:textColor="@android:color/black" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutSpeed"
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/relativeLayout">
+
+            <TextView
+                android:id="@+id/textSpeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="15dp"
+                android:text="Speed"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/valueSpeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textSpeed"
+                android:layout_below="@+id/textSpeed"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="21dp"
+                android:text="xx Kph"
+                android:textColor="@android:color/black" />
+        </RelativeLayout>
 
     </RelativeLayout>
 
