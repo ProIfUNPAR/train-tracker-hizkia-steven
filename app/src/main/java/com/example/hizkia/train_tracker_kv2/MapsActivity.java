@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -40,12 +41,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
+    private TextView tvDistance, tvEta, tvSpeed;
+    private Location dummyLocation;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         getLocationPermission();
 
+        this.tvDistance = this.findViewById(R.id.valueDistance);
+        this.tvEta = this.findViewById(R.id.valueETA);
+        this.tvSpeed = this.findViewById(R.id.valueSpeed);
     }
 
     @Override
@@ -77,6 +84,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         if(task.isSuccessful()){
                             Log.d(TAG, "onComplete: location found");
                             Location currLocation = (Location) task.getResult();
+                            dummyLocation = new Location("");
+                            dummyLocation.setLatitude(currLocation.getLatitude() + 0.001);
+                            dummyLocation.setLongitude(currLocation.getLongitude() + 0.001);
                             moveCamera(new LatLng(currLocation.getLatitude(), currLocation.getLongitude()), DEFAULT_ZOOM);
                         } else {
                             Log.d(TAG, "onComplete: current location is null");
@@ -92,8 +102,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     @Override
                     public void onLocationChanged(Location location) {
                         location.getLatitude();
-                        Toast.makeText(getApplicationContext(), "Current speed:" + location.getSpeed(),
-                                Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Current speed:" + location.getSpeed(),
+                                //Toast.LENGTH_SHORT).show();
+                        float speed = location.getSpeed();
+                        speed = speed * 3600 / 1000;
+                        tvSpeed.setText(speed + "Kph");
+                        float distance = location.distanceTo(dummyLocation) / 1000;
+                        tvDistance.setText(distance + "Km");
+                        float eta = distance / speed;
+                        tvEta.setText(eta + "");
                     }
 
                     @Override
