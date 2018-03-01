@@ -28,6 +28,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
+
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = "MapsActivity";
@@ -41,8 +43,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
-    private TextView tvDistance, tvEta, tvSpeed;
+    private TextView tvDistance, tvEta, tvSpeed, txtStation;
     private Location dummyLocation;
+    private String sourceStation, destStation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +56,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.tvDistance = this.findViewById(R.id.valueDistance);
         this.tvEta = this.findViewById(R.id.valueETA);
         this.tvSpeed = this.findViewById(R.id.valueSpeed);
+        this.txtStation = this.findViewById(R.id.txtStationDetail);
+
+        this.sourceStation = TracksActivity.sourceStation;
+        this.destStation = TracksActivity.destStation;
+        this.txtStation.setText(this.sourceStation + " - "+ this.destStation);
     }
 
     @Override
@@ -68,6 +76,31 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return;
             }
             mMap.setMyLocationEnabled(true);
+
+            Station startStation = Database.getStationInfo(this.sourceStation);
+            LatLng start = new LatLng( startStation.getLatitude(),startStation.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(start).title(startStation.getNamaStasiun()));
+            //Log.d("onMapReady", "Latitude start: " + startStation.getLatitude());
+            //Log.d("onMapReady", "Longitude start : " + startStation.getLongitude());
+
+            //GET LIST OF STATIONS ON TRACK
+            ArrayList<Station> listStations;
+            if(!MainActivity.isArrival){
+                listStations = Database.getStationOnTrack(this.sourceStation,this.destStation,0);
+            }else{
+                listStations = Database.getStationOnTrack(this.sourceStation,this.destStation,1);
+            }
+            //LOOP to ADD MARKER FOR EACH STATIONS ON TRACK
+            int i;
+            for(i=0; i<listStations.size(); i++){
+                Station temp = listStations.get(i);
+                LatLng addStation = new LatLng( temp.getLatitude(),temp.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(addStation).title(temp.getNamaStasiun()));
+            }
+
+            Station endStation = Database.getStationInfo(this.destStation);
+            LatLng end = new LatLng( endStation.getLatitude(), endStation.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(end).title(endStation.getNamaStasiun()));
         }
     }
 

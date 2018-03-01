@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Button;
@@ -16,7 +18,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 
 import java.util.ArrayList;
 
-public class TracksActivity extends AppCompatActivity implements View.OnClickListener {
+public class TracksActivity extends AppCompatActivity implements View.OnClickListener , AdapterView.OnItemSelectedListener{
 
     private static final String TAG = "TracksActivity";
 
@@ -25,6 +27,7 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
     private Button btnGoMap;
     private Button btnBack;
     protected Spinner spCurr, spDest;
+    protected static String sourceStation, destStation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,11 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
         this.spCurr = this.findViewById(R.id.spinnerCurrent);
         this.spDest = this.findViewById(R.id.spinnerDestination);
         //SET ID FROM LAYOUT END
+
+        //SET ON CLICK LISTERNER FOR SPINNER START
+        this.spCurr.setOnItemSelectedListener(this);
+        this.spDest.setOnItemSelectedListener(this);
+        //SET ON CLICK LISTERNER FOR SPINNER END
 
         //SET LISTENER START
         btnGoMap.setOnClickListener(this);
@@ -113,4 +121,16 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
         return false;
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+        sourceStation = this.spCurr.getSelectedItem().toString();
+        System.out.println("source = " + sourceStation);
+        destStation = this.spDest.getSelectedItem().toString();
+        System.out.println("destination = " + destStation);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+    }
 }

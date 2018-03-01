@@ -10,7 +10,7 @@ public class Station {
     private double longitude; // menentukan lokasi di wilayah barat atau timur dari garis meridian (0 derajat greenwich sampai 180 derajat international date line)
     //private String city;
 
-    public Station (String name, double longitude, double latitude){
+    public Station (String name, double latitude, double longitude){
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;

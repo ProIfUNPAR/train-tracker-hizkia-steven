@@ -25,7 +25,7 @@
             android:animateLayoutChanges="false">
 
             <TextView
-                android:id="@+id/textKeteranganKota"
+                android:id="@+id/txtStationDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"

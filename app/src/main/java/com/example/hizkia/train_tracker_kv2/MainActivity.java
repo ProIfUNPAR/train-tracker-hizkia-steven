@@ -22,7 +22,6 @@ import com.google.android.gms.common.GoogleApiAvailability;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    protected RadioGroup rbGroup;
     protected RadioButton rbStart, rbEnd;
     protected Button btnNext;
     protected Spinner spTrains;
