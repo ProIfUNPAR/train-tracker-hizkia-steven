@@ -3,6 +3,7 @@ package com.example.hizkia.train_tracker_kv2;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,6 +27,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -48,6 +51,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Location dummyLocation;
     private String sourceStation, destStation;
 
+    private Polyline line;
+    private PolylineOptions lineOpt;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +75,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Toast.makeText(this, "Map is Ready", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "onMapReady: Map is Ready");
         mMap = googleMap;
+        lineOpt =new PolylineOptions();
 
         if (locationPermissionGranted) {
             getDeviceLocation();
@@ -81,6 +88,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Station startStation = Database.getStationInfo(this.sourceStation);
             LatLng start = new LatLng( startStation.getLatitude(),startStation.getLongitude());
             mMap.addMarker(new MarkerOptions().position(start).title(startStation.getNamaStasiun()));
+            lineOpt.add(start);
             //Log.d("onMapReady", "Latitude start: " + startStation.getLatitude());
             //Log.d("onMapReady", "Longitude start : " + startStation.getLongitude());
 
@@ -96,13 +104,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             for(i=1; i<listStations.size()-1; i++){
                 Station temp = listStations.get(i);
                 LatLng addStation = new LatLng( temp.getLatitude(),temp.getLongitude());
+
                 mMap.addMarker(new MarkerOptions().position(addStation).title(temp.getNamaStasiun())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker)));
+                lineOpt.add(addStation);
+
             }
 
             Station endStation = Database.getStationInfo(this.destStation);
             LatLng end = new LatLng( endStation.getLatitude(), endStation.getLongitude());
             mMap.addMarker(new MarkerOptions().position(end).title(endStation.getNamaStasiun()));
+            lineOpt.add(end);
+
+            lineOpt.color(R.color.blue);
+            line = mMap.addPolyline(lineOpt);
+
         }
     }
 
