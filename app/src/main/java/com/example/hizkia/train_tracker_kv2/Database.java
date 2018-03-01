@@ -49,8 +49,8 @@ public class Database {
         stationInfo.put("Stasiun Cirebon", new Station("Stasiun Cirebon", -6.705298, 108.555399));
         stationInfo.put("Stasiun Tegal", new Station("Stasiun Tegal", -6.867345, 109.142687));
         stationInfo.put("Stasiun Pekalongan", new Station("Stasiun Pekalongan", -6.889684, 109.664378));
-        stationInfo.put("Stasiun SemarangTawang", new Station("Stasiun Semarang Tawang", -6.964436, 110.427925));
-        stationInfo.put("Stasiun SemarangPoncol", new Station("Stasiun Semarang Poncol", -6.972832, 110.414697));
+        stationInfo.put("Stasiun Semarang Tawang", new Station("Stasiun Semarang Tawang", -6.964436, 110.427925));
+        stationInfo.put("Stasiun Semarang Poncol", new Station("Stasiun Semarang Poncol", -6.972832, 110.414697));
 
         // untuk testing aplikasi
         stationInfo.put("unpar",new Station("unpar",-6.873485, 107.604630));
@@ -71,10 +71,10 @@ public class Database {
         ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("Stasiun Cirebon"));
         ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("Stasiun Tegal"));
         ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("Stasiun Pekalongan"));
-        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("Stasiun SemarangTawang"));
+        ciremaiBandung_SemarangTawang.addDepartureTrack(stationInfo.get("Stasiun Semarang Tawang"));
 
-        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("Stasiun SemarangTawang"));
-        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("Stasiun SemarangPoncol"));
+        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("Stasiun Semarang Tawang"));
+        ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("Stasiun Semarang Poncol"));
         ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("Stasiun Pekalongan"));
         ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("Stasiun Tegal"));
         ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("Stasiun Cirebon"));
