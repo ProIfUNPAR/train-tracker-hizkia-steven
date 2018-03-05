@@ -150,7 +150,7 @@ public class Database {
         ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("Stasiun Cimahi"));
         ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("Stasiun Bandung"));
         trainInfo.put("ciremaiBandung_SemarangTawang",ciremaiBandung_SemarangTawang);
-        this.listOfTrains[ctList++] = "ciremaiBandung_SemarangTawang";
+        this.listOfTrains[ctList++] = "ciremaiBandung_Semarang Tawang";
 
 
         //train testing
