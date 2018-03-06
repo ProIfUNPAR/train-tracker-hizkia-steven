@@ -17,7 +17,7 @@ public class Database {
 
     public Database(){
         //this.trains = new ArrayList<>();
-        this.listOfTrains = new String [2]; // initial value : set length of list is 50 trains
+        this.listOfTrains = new String [10]; // initial value : set length of list is 50 trains
         this.ctList = 0;
         stationInfo = new HashMap<>();
         trainInfo = new HashMap<>();
@@ -223,8 +223,8 @@ public class Database {
         cirebonEkspres.addArrivalTrack(stationInfo.get("Stasiun Jatibarang"));
         cirebonEkspres.addArrivalTrack(stationInfo.get("Stasiun Arjawinangun"));
         cirebonEkspres.addArrivalTrack(stationInfo.get("Stasiun Cirebon"));
-        trainInfo.put("Cirebon Ekspres_| Cirebon - Gambir",cirebonEkspres);
-        this.listOfTrains[ctList++] = "Cirebon Ekspres_| Cirebon - Gambir";
+        trainInfo.put("Cirebon Ekspres | Cirebon - Gambir",cirebonEkspres);
+        this.listOfTrains[ctList++] = "Cirebon Ekspres | Cirebon - Gambir";
 
 
         //Tegal Bahari
