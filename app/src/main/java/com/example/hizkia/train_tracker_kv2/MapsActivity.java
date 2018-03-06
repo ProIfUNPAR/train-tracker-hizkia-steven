@@ -48,7 +48,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FusedLocationProviderClient fusedLocationProviderClient;
 
     private TextView tvDistance, tvEta, tvSpeed, txtStation;
-    private Location dummyLocation;
+    private Location tempLocation1, tempLocation2;
+    private float totalDistance;
     private String sourceStation, destStation;
 
     private Polyline line;
@@ -65,6 +66,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.tvSpeed = this.findViewById(R.id.valueSpeed);
         this.txtStation = this.findViewById(R.id.txtStationDetail);
 
+
         this.sourceStation = TracksActivity.sourceStation;
         this.destStation = TracksActivity.destStation;
         this.txtStation.setText(this.sourceStation + " - "+ this.destStation);
@@ -78,7 +80,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         lineOpt =new PolylineOptions();
 
         if (locationPermissionGranted) {
-            getDeviceLocation();
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
@@ -119,10 +120,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             lineOpt.color(R.color.blue);
             line = mMap.addPolyline(lineOpt);
 
+            getDeviceLocation(listStations);
+
         }
     }
 
-    private void getDeviceLocation(){
+    private void getDeviceLocation(ArrayList<Station> listStations){
         Log.d(TAG, "getDeviceLocation: getting current device location");
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -135,9 +138,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         if(task.isSuccessful()){
                             Log.d(TAG, "onComplete: location found");
                             Location currLocation = (Location) task.getResult();
-                            dummyLocation = new Location("");
-                            dummyLocation.setLatitude(currLocation.getLatitude() + 0.001);
-                            dummyLocation.setLongitude(currLocation.getLongitude() + 0.001);
+
                             moveCamera(new LatLng(currLocation.getLatitude(), currLocation.getLongitude()), DEFAULT_ZOOM);
                         } else {
                             Log.d(TAG, "onComplete: current location is null");
@@ -145,6 +146,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         }
                     }
                 });
+
+                for(int i=1; i<listStations.size(); i++){
+                    Station temp1 = listStations.get(i);
+                    Station temp2 = listStations.get(i + 1);
+
+
+                    tempLocation1 = new Location("");
+                    tempLocation1.setLatitude(temp1.getLatitude());
+                    tempLocation1.setLongitude(temp1.getLongitude());
+
+                    tempLocation2 = new Location("");
+                    tempLocation2.setLatitude(temp2.getLatitude());
+                    tempLocation2.setLongitude(temp2.getLongitude());
+
+                    totalDistance += tempLocation1.distanceTo(tempLocation2);
+                }
 
                 LocationManager locManager = (LocationManager) this
                         .getSystemService(Context.LOCATION_SERVICE);
@@ -158,7 +175,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         float speed = location.getSpeed();
                         speed = speed * 3600 / 1000;
                         tvSpeed.setText(speed + "Kph");
-                        float distance = location.distanceTo(dummyLocation) / 1000;
+                        float distance = totalDistance / 1000;
                         tvDistance.setText(distance + "Km");
                         float eta = distance / speed;
                         tvEta.setText(eta + "");
