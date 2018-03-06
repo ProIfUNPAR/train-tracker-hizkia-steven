@@ -1,9 +1,11 @@
 package com.example.hizkia.train_tracker_kv2;
 
 import android.Manifest;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -12,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -51,6 +54,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Location tempLocation1, tempLocation2;
     private float totalDistance;
     private String sourceStation, destStation;
+    private boolean[] visited;
+    private ArrayList<Station> listStations;
+    private int ct;
 
     private Polyline line;
     private PolylineOptions lineOpt;
@@ -70,6 +76,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.sourceStation = TracksActivity.sourceStation;
         this.destStation = TracksActivity.destStation;
         this.txtStation.setText(this.sourceStation + " - "+ this.destStation);
+
+        this.ct = 0;
     }
 
     @Override
@@ -94,7 +102,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             //Log.d("onMapReady", "Longitude start : " + startStation.getLongitude());
 
             //GET LIST OF STATIONS ON TRACK
-            ArrayList<Station> listStations;
             if(!MainActivity.isArrival){
                 listStations = Database.getStationOnTrack(this.sourceStation,this.destStation,0);
             }else{
@@ -112,6 +119,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
 
+            this.visited = new boolean[listStations.size()];
+
             Station endStation = Database.getStationInfo(this.destStation);
             LatLng end = new LatLng( endStation.getLatitude(), endStation.getLongitude());
             mMap.addMarker(new MarkerOptions().position(end).title(endStation.getNamaStasiun()));
@@ -125,7 +134,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private void getDeviceLocation(ArrayList<Station> listStations){
+    private void getDeviceLocation(final ArrayList<Station> listStations){
         Log.d(TAG, "getDeviceLocation: getting current device location");
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -147,7 +156,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
 
-                for(int i=1; i<listStations.size(); i++){
+                for(int i = 0; i<listStations.size() - 1; i++){
                     Station temp1 = listStations.get(i);
                     Station temp2 = listStations.get(i + 1);
 
@@ -169,15 +178,31 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     @Override
                     public void onLocationChanged(Location location) {
-                        location.getLatitude();
+                        //location.getLatitude();
                         //Toast.makeText(getApplicationContext(), "Current speed:" + location.getSpeed(),
                                 //Toast.LENGTH_SHORT).show();
                         float speed = location.getSpeed();
                         speed = speed * 3600 / 1000;
-                        tvSpeed.setText(speed + "Kph");
-                        float distance = totalDistance / 1000;
-                        tvDistance.setText(distance + "Km");
+                        tvSpeed.setText(String.format("%.1f", speed)+ "Kph");
+                        Location temp1 = new Location("");
+                        temp1.setLongitude(listStations.get(ct).getLongitude());
+                        temp1.setLatitude(listStations.get(ct).getLatitude());
+                        float distanceCurr = location.distanceTo(temp1);
+                        if(distanceCurr <= 500) {
+                            ct++;
+                            Location temp2 = new Location("");
+                            temp2.setLongitude(listStations.get(ct).getLongitude());
+                            temp2.setLatitude(listStations.get(ct).getLatitude());
+
+                            totalDistance = totalDistance - temp1.distanceTo(temp2);
+                        }
+                        float distance = totalDistance + distanceCurr;
+                        tvDistance.setText(String.format("%.1f", distance) + "Km");
                         float eta = distance / speed;
+                        tvEta.setText(String.format("%02d:%02d:%02d",
+                                TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
+                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
                         tvEta.setText(eta + "");
                     }
 
@@ -203,6 +228,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } catch (SecurityException e){
             Log.e(TAG, "getDeviceLocation(): SecurityException: " + e.getMessage());
         }
+    }
+
+    public void notificationCall(){
+        NotificationCompat.Builder nb = new NotificationCompat.Builder(this)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                //SET NOTIFICATION SMALL ICON
+                .setSmallIcon(R.drawable.trainicon)
+                //SET NOTIFICATION LARGE ICON
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.trainicon))
+                //NOTIFICATION TITLE
+                .setContentTitle("TRAIN_TRACKER_KV2")
+                //NOTIFICATION CONTENT
+                .setContentText("Your train will arrive in 10 minutes!");
+
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.notify(1, nb.build());
     }
 
     private void moveCamera(LatLng latLng, float zoom){
