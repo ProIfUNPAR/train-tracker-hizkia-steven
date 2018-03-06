@@ -65,7 +65,19 @@
                 android:layout_below="@+id/textDistance"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="21dp"
-                android:text="xx KM"
+                android:text="000.00"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/textKM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/valueDistance"
+                android:layout_alignBottom="@+id/valueDistance"
+                android:layout_alignLeft="@+id/valueDistance"
+                android:layout_toEndOf="@+id/valueDistance"
+                android:layout_marginLeft="50dp"
+                android:text="KM"
                 android:textColor="@android:color/black" />
         </RelativeLayout>
 
@@ -97,9 +109,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/textETA"
                 android:layout_below="@+id/textETA"
-                android:text="xx H xx M xx S"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="21dp"
+                android:text="00 H 00 M 00 S"
                 android:textColor="@android:color/black" />
         </RelativeLayout>
 
@@ -132,7 +144,19 @@
                 android:layout_below="@+id/textSpeed"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="21dp"
-                android:text="xx Kph"
+                android:text="000"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/textKpH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/valueSpeed"
+                android:layout_alignLeft="@+id/valueSpeed"
+                android:layout_alignParentRight="true"
+                android:layout_toEndOf="@+id/valueSpeed"
+                android:layout_marginLeft="30dp"
+                android:text="KpH"
                 android:textColor="@android:color/black" />
         </RelativeLayout>
 

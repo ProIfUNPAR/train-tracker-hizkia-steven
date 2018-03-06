@@ -149,6 +149,7 @@ public class Database {
         ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("Stasiun Purwakarta"));
         ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("Stasiun Cimahi"));
         ciremaiBandung_SemarangTawang.addArrivalTrack(stationInfo.get("Stasiun Bandung"));
+
         trainInfo.put("Ciremai | Bandung - Semarang Tawang",ciremaiBandung_SemarangTawang);
         this.listOfTrains[ctList++] = "Ciremai | Bandung - Semarang Tawang";
 
