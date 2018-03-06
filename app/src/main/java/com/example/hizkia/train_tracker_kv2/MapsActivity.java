@@ -54,7 +54,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Location tempLocation1, tempLocation2;
     private float totalDistance;
     private String sourceStation, destStation;
-    private boolean[] visited;
     private ArrayList<Station> listStations;
     private int ct;
 
@@ -77,6 +76,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.destStation = TracksActivity.destStation;
         this.txtStation.setText(this.sourceStation + " - "+ this.destStation);
 
+
+        this.totalDistance = 0;
         this.ct = 0;
     }
 
@@ -118,8 +119,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 lineOpt.add(addStation);
 
             }
-
-            this.visited = new boolean[listStations.size()];
 
             Station endStation = Database.getStationInfo(this.destStation);
             LatLng end = new LatLng( endStation.getLatitude(), endStation.getLongitude());
@@ -169,7 +168,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     tempLocation2.setLatitude(temp2.getLatitude());
                     tempLocation2.setLongitude(temp2.getLongitude());
 
-                    totalDistance += tempLocation1.distanceTo(tempLocation2);
+                    totalDistance += (tempLocation1.distanceTo(tempLocation2)/ 1000);
                 }
 
                 LocationManager locManager = (LocationManager) this
@@ -181,29 +180,36 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         //location.getLatitude();
                         //Toast.makeText(getApplicationContext(), "Current speed:" + location.getSpeed(),
                                 //Toast.LENGTH_SHORT).show();
+
                         float speed = location.getSpeed();
                         speed = speed * 3600 / 1000;
-                        tvSpeed.setText(String.format("%.1f", speed)+ "Kph");
+                        tvSpeed.setText(String.format("%.1f", speed));
+
                         Location temp1 = new Location("");
                         temp1.setLongitude(listStations.get(ct).getLongitude());
                         temp1.setLatitude(listStations.get(ct).getLatitude());
-                        float distanceCurr = location.distanceTo(temp1);
-                        if(distanceCurr <= 500) {
+                        float distanceCurr = location.distanceTo(temp1) / 1000;
+
+                        if(distanceCurr <= 0.5) {
                             ct++;
+                            if(ct == listStations.size())notificationCall("Your train has arrived!");
                             Location temp2 = new Location("");
                             temp2.setLongitude(listStations.get(ct).getLongitude());
                             temp2.setLatitude(listStations.get(ct).getLatitude());
 
-                            totalDistance = totalDistance - temp1.distanceTo(temp2);
+                            totalDistance = totalDistance - (temp1.distanceTo(temp2) / 1000);
                         }
                         float distance = totalDistance + distanceCurr;
-                        tvDistance.setText(String.format("%.1f", distance) + "Km");
+                        tvDistance.setText(String.format("%.1f", distance));
+
                         float eta = distance / speed;
-                        tvEta.setText(String.format("%02d:%02d:%02d",
-                                TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
-                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
-                        tvEta.setText(eta + "");
+                        if(eta < 0.09)notificationCall("Your train will arrive in 5 minutes!");
+                        int second = (int)(((eta % 1) * 3600) % 60);
+                        int minute = (int)((eta % 1) * 60 ) % 60;
+                        int hour = (int)(eta);
+                        //String resultTimeText = String.format("%2d:%2d:%2d", hour, minute, second);
+                        if(speed != 0)tvEta.setText(String.format("%02d H : %02d M : %02d S",hour, minute, second));
+                        else tvEta.setText(eta + "");
                     }
 
                     @Override
@@ -223,15 +229,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 };
 
                 locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100,
-                        10, locListener);
+                        1, locListener);
             }
         } catch (SecurityException e){
             Log.e(TAG, "getDeviceLocation(): SecurityException: " + e.getMessage());
         }
     }
 
-    public void notificationCall(){
-        NotificationCompat.Builder nb = new NotificationCompat.Builder(this)
+    public void notificationCall(String message){
+        NotificationCompat.Builder nb = new NotificationCompat.Builder(this, "default")
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 //SET NOTIFICATION SMALL ICON
                 .setSmallIcon(R.drawable.trainicon)
@@ -240,7 +246,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 //NOTIFICATION TITLE
                 .setContentTitle("TRAIN_TRACKER_KV2")
                 //NOTIFICATION CONTENT
-                .setContentText("Your train will arrive in 10 minutes!");
+                .setContentText(message);
 
         NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         nm.notify(1, nb.build());
