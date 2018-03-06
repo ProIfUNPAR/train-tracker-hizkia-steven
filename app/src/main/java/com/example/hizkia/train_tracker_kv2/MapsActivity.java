@@ -147,7 +147,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
 
-                for(int i=1; i<listStations.size(); i++){
+                for(int i=1; i<listStations.size()-1; i++){
                     Station temp1 = listStations.get(i);
                     Station temp2 = listStations.get(i + 1);
 
