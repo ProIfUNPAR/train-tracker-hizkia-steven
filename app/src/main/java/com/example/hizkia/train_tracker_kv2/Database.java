@@ -2,7 +2,8 @@ package com.example.hizkia.train_tracker_kv2;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.TreeMap;
 
 /**
  * Created by ASUS on 2/8/2018.
@@ -10,8 +11,8 @@ import java.util.HashMap;
 
 public class Database {
     //private ArrayList<Train> trains;
-    private static HashMap <String,Station> stationInfo;
-    private static HashMap <String,Train> trainInfo;
+    private static TreeMap <String,Station> stationInfo;
+    private static TreeMap <String,Train> trainInfo;
     private String[] listOfTrains;
     private int ctList; // counter for number of trains
 
@@ -19,8 +20,8 @@ public class Database {
         //this.trains = new ArrayList<>();
         this.listOfTrains = new String [10]; // initial value : set length of list is 50 trains
         this.ctList = 0;
-        stationInfo = new HashMap<>();
-        trainInfo = new HashMap<>();
+        stationInfo = new TreeMap<>();
+        trainInfo = new TreeMap<>();
         //Station
         initStation();
         //train
@@ -441,6 +442,8 @@ public class Database {
 
         trainInfo.put("testing",testing);
         this.listOfTrains[ctList++] = "testing";
+
+        Arrays.sort(this.listOfTrains);
     }
 
     //GET THE STATIONS TRAVERSED BY TRAIN from START_STATION to END_STATION
@@ -459,14 +462,14 @@ public class Database {
         //TAKE STATIONS THAT ARE ONLY PASSED FROM START STATION TO END STATION OF ALL STATIONS
         int i;
         boolean checkStart = false;
-        for(i=0; i<fullTrack.size(); i++){
-            if(checkStart){
+        for(i=0; i<fullTrack.size(); i++) {
+            if (checkStart) {
                 listStations.add(fullTrack.get(i));
-                if(fullTrack.get(i).getNamaStasiun().equalsIgnoreCase(end)){
+                if (fullTrack.get(i).getNamaStasiun().equalsIgnoreCase(end)) {
                     break;
                 }
-            }else{
-                if(fullTrack.get(i).getNamaStasiun().equalsIgnoreCase(start)){
+            } else {
+                if (fullTrack.get(i).getNamaStasiun().equalsIgnoreCase(start)) {
                     checkStart = true;
                     listStations.add(fullTrack.get(i));
                 }
