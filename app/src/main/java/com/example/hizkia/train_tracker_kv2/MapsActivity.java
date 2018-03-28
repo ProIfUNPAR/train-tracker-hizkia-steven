@@ -190,9 +190,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         temp1.setLatitude(listStations.get(ct).getLatitude());
                         float distanceCurr = location.distanceTo(temp1) / 1000;
 
-                        if(distanceCurr <= 0.5) {
+                        if(distanceCurr <= 500 && ct < 1) {
                             ct++;
-                            if(ct == listStations.size())notificationCall("Your train has arrived!");
+                            //if(ct == listStations.size())
+                                notificationCall("Your train has arrived!");
                             Location temp2 = new Location("");
                             temp2.setLongitude(listStations.get(ct).getLongitude());
                             temp2.setLatitude(listStations.get(ct).getLatitude());
@@ -202,14 +203,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         float distance = totalDistance + distanceCurr;
                         tvDistance.setText(String.format("%.1f", distance));
 
-                        float eta = distance / speed;
+                        float eta;
+                        if(speed <= 30)eta = distance / 30;
+                        else eta = distance / speed;
                         if(eta < 0.09)notificationCall("Your train will arrive in 5 minutes!");
                         int second = (int)(((eta % 1) * 3600) % 60);
                         int minute = (int)((eta % 1) * 60 ) % 60;
                         int hour = (int)(eta);
                         //String resultTimeText = String.format("%2d:%2d:%2d", hour, minute, second);
-                        if(speed != 0)tvEta.setText(String.format("%02d H : %02d M : %02d S",hour, minute, second));
-                        else tvEta.setText(eta + "");
+                        tvEta.setText(String.format("%02d H : %02d M : %02d S",hour, minute, second));
                     }
 
                     @Override
@@ -230,6 +232,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100,
                         1, locListener);
+                locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
             }
         } catch (SecurityException e){
             Log.e(TAG, "getDeviceLocation(): SecurityException: " + e.getMessage());
