@@ -17,14 +17,85 @@
         android:id="@+id/relativeLayout2">
 
         <RelativeLayout
-            android:id="@+id/relativeLayout"
+            android:id="@+id/relativeLayoutNextAbove"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
+            android:layout_marginRight="192dp"
+            android:background="@drawable/customborder">
+
+            <TextView
+                android:id="@+id/txtNextDestination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="17dp"
+                android:text="Next Destination"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutNextBelow"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="192dp"
+            android:background="@drawable/customborder">
+
+            <TextView
+                android:id="@+id/txtStationNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="30dp"
+                android:text="Next City"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutDestinationAbove"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="192dp"
             android:alwaysDrawnWithCache="false"
-            android:animateLayoutChanges="false">
+            android:animateLayoutChanges="false"
+            android:background="@drawable/customborder">
+
+            <TextView
+                android:id="@+id/txtStationDestination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="17dp"
+                android:text="Last Destination"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutDestinationBelow"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="192dp"
+            android:layout_marginTop="25dp"
+            android:alwaysDrawnWithCache="false"
+            android:animateLayoutChanges="false"
+            android:background="@drawable/customborder">
 
             <TextView
                 android:id="@+id/txtStationDetail"
@@ -32,8 +103,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="17dp"
-                android:text="KotaAwal - KotaTujuan"
+                android:layout_marginStart="30dp"
+                android:text="Destination City"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
@@ -41,13 +112,77 @@
 
         <RelativeLayout
             android:id="@+id/layoutDistance"
-            android:layout_width="128dp"
+            android:layout_width="192dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="256dp"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="34dp"
+            android:background="@drawable/customborder">
+
+            <TextView
+                android:id="@+id/textDistanceNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="15dp"
+                android:text="Distance"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/valueDistanceNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textDistanceNext"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="15dp"
+                android:text="000.00"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/textKMNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/valueDistanceNext"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="15dp"
+                android:text="KM"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/textETANext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="40dp"
+                android:text="ETA"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/valueETANext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textETANext"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="40dp"
+                android:text="00 H 00 M 00 S"
+                android:textColor="@android:color/black" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutETA"
+            android:layout_width="192dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="34dp"
+            android:background="@drawable/customborder">
 
             <TextView
                 android:id="@+id/textDistance"
@@ -64,9 +199,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/textDistance"
-                android:layout_below="@+id/textDistance"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="21dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="15dp"
                 android:text="000.00"
                 android:textColor="@android:color/black" />
 
@@ -81,18 +215,6 @@
                 android:layout_marginLeft="50dp"
                 android:text="KM"
                 android:textColor="@android:color/black" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layoutETA"
-            android:layout_width="128dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="128dp"
-            android:layout_marginStart="128dp"
-            android:layout_marginTop="50dp">
 
             <TextView
                 android:id="@+id/textETA"
@@ -101,7 +223,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="40dp"
                 android:text="ETA"
                 android:textColor="@android:color/black" />
 
@@ -110,22 +232,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/textETA"
-                android:layout_below="@+id/textETA"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="21dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="40dp"
                 android:text="00 H 00 M 00 S"
                 android:textColor="@android:color/black" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/layoutSpeed"
-            android:layout_width="128dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="50dp"
-            android:layout_below="@+id/relativeLayout">
+            android:layout_marginTop="116dp"
+            android:background="@drawable/customborder">
 
             <TextView
                 android:id="@+id/textSpeed"
@@ -133,8 +254,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="8dp"
                 android:text="Speed"
                 android:textColor="@android:color/black" />
 
@@ -142,10 +263,9 @@
                 android:id="@+id/valueSpeed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/textSpeed"
-                android:layout_below="@+id/textSpeed"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="21dp"
+                android:layout_alignLeft="@+id/textSpeed"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="8dp"
                 android:text="000"
                 android:textColor="@android:color/black" />
 
@@ -158,6 +278,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_toEndOf="@+id/valueSpeed"
                 android:layout_marginLeft="30dp"
+                android:layout_marginRight="120dp"
                 android:text="KpH"
                 android:textColor="@android:color/black" />
         </RelativeLayout>
