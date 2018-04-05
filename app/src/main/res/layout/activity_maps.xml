@@ -22,7 +22,8 @@
             android:layout_height="25dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginRight="192dp">
+            android:layout_marginRight="192dp"
+            android:background="@drawable/customborder">
 
             <TextView
                 android:id="@+id/txtNextDestination"
@@ -44,7 +45,8 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="25dp"
-            android:layout_marginRight="192dp">
+            android:layout_marginRight="192dp"
+            android:background="@drawable/customborder">
 
             <TextView
                 android:id="@+id/txtStationNext"
@@ -67,7 +69,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="192dp"
             android:alwaysDrawnWithCache="false"
-            android:animateLayoutChanges="false">
+            android:animateLayoutChanges="false"
+            android:background="@drawable/customborder">
 
             <TextView
                 android:id="@+id/txtStationDestination"
@@ -91,7 +94,8 @@
             android:layout_marginLeft="192dp"
             android:layout_marginTop="25dp"
             android:alwaysDrawnWithCache="false"
-            android:animateLayoutChanges="false">
+            android:animateLayoutChanges="false"
+            android:background="@drawable/customborder">
 
             <TextView
                 android:id="@+id/txtStationDetail"
@@ -114,7 +118,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="50dp"
-            android:layout_marginBottom="34dp">
+            android:layout_marginBottom="34dp"
+            android:background="@drawable/customborder">
 
             <TextView
                 android:id="@+id/textDistanceNext"
@@ -176,7 +181,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="50dp"
-            android:layout_marginBottom="34dp">
+            android:layout_marginBottom="34dp"
+            android:background="@drawable/customborder">
 
             <TextView
                 android:id="@+id/textDistance"
@@ -239,7 +245,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="116dp">
+            android:layout_marginTop="116dp"
+            android:background="@drawable/customborder">
 
             <TextView
                 android:id="@+id/textSpeed"
