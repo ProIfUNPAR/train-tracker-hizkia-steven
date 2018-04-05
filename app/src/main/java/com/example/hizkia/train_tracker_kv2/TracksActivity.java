@@ -76,11 +76,49 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
         spCurr.setAdapter(currAdapt);
 
             //Adapter for destination station
-        ArrayAdapter<String> destAdapt = new ArrayAdapter<String>(TracksActivity.this,
+        final ArrayAdapter<String> destAdapt = new ArrayAdapter<String>(TracksActivity.this,
                 android.R.layout.simple_spinner_item,arrStation);
         destAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spDest.setAdapter(destAdapt);
         //SET ALL ADAPTER END
+
+        //SET INITIAL INDEX OF SPINNER SOURCE AND SPINNER DESTINATION START
+        spCurr.setSelection(0);
+        spDest.setSelection(spDest.getAdapter().getCount()-1);
+        //SET INITIAL INDEX END
+
+        //SET LISTENER FOR SPINNER CURR
+        spCurr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                int idxCurr = spCurr.getSelectedItemPosition();
+                if(idxCurr == spCurr.getAdapter().getCount()-1){
+                   idxCurr =  spCurr.getAdapter().getCount()-2;
+                }
+                if(idxCurr != 0 ){
+                    String[] arrStationChange = new String[destAdapt.getCount()-idxCurr-1];
+                    int i;
+                    for(i=0; i<arrStationChange.length; i++){
+                        arrStationChange[i] = (String)spCurr.getItemAtPosition(++idxCurr);
+                        System.out.println(arrStationChange[i]);
+                    }
+
+                    //Adapter for new destination stations
+                    ArrayAdapter<String> destAdapt = new ArrayAdapter<String>(TracksActivity.this,
+                            android.R.layout.simple_spinner_item,arrStationChange);
+                    destAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spDest.setAdapter(destAdapt);
+                    spDest.setSelection(spDest.getAdapter().getCount()-1); //set destination do last station
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
     }
 
     //PUT EVERY ONCLICK FUNCTION HERE
@@ -125,9 +163,9 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
         sourceStation = this.spCurr.getSelectedItem().toString();
-        System.out.println("source = " + sourceStation);
+        //System.out.println("source = " + sourceStation);
         destStation = this.spDest.getSelectedItem().toString();
-        System.out.println("destination = " + destStation);
+        //System.out.println("destination = " + destStation);
     }
 
     @Override
