@@ -18,7 +18,7 @@ public class Database {
 
     public Database(){
         //this.trains = new ArrayList<>();
-        this.listOfTrains = new String [12]; // initial value : set length of list is 50 trains
+        this.listOfTrains = new String [14]; // initial value : set length of list is 50 trains
         this.ctList = 0;
         stationInfo = new TreeMap<>();
         trainInfo = new TreeMap<>();
@@ -120,6 +120,11 @@ public class Database {
         stationInfo.put("Stasiun Bumiayu", new Station("Stasiun Bumiayu", -7.237431, 109.009813));
         stationInfo.put("Stasiun Ciledug", new Station("Stasiun Ciledug", -6.903064, 108.743914));
         stationInfo.put("Stasiun Pasar Senen", new Station("Stasiun Pasar Senen", -6.174728, 106.844366));
+        stationInfo.put("Stasiun Wates", new Station("Stasiun Wates",-7.859568, 110.157929));
+        stationInfo.put("Stasiun Sidareja", new Station("Stasiun Sidareja",-7.486377, 108.807519));
+        stationInfo.put("Stasiun Meluwung", new Station("Stasiun Meluwung",-7.394298, 108.699520));
+        stationInfo.put("Stasiun Maos", new Station("Stasiun Maos",-7.619081, 109.139463));
+        stationInfo.put("Stasiun Ijo", new Station("Stasiun Ijo",-7.615272, 109.446940));
 
                 //stationInfo.put("Stasiun ", new Station("Stasiun ", ));
 
@@ -451,42 +456,42 @@ public class Database {
         // argo bromo anggrek-eksekutif
         Train argoAnggrek = new Train("Argo Anggrek");
         //Surabaya Pasarturi-Gambir
-        argoAnggrek.addArrivalTrack(stationInfo.get("Stasiun Surabaya Pasarturi"));
-        argoAnggrek.addArrivalTrack(stationInfo.get("Stasiun Semarang Tawang"));
-        argoAnggrek.addArrivalTrack(stationInfo.get("Stasiun Pekalongan"));
-        argoAnggrek.addArrivalTrack(stationInfo.get("Stasiun Cirebon"));
-        argoAnggrek.addArrivalTrack(stationInfo.get("Stasiun Jatinegara"));
-        argoAnggrek.addArrivalTrack(stationInfo.get("Stasiun Gambir"));
+        argoAnggrek.addDepartureTrack(stationInfo.get("Stasiun Surabaya Pasarturi"));
+        argoAnggrek.addDepartureTrack(stationInfo.get("Stasiun Semarang Tawang"));
+        argoAnggrek.addDepartureTrack(stationInfo.get("Stasiun Pekalongan"));
+        argoAnggrek.addDepartureTrack(stationInfo.get("Stasiun Cirebon"));
+        argoAnggrek.addDepartureTrack(stationInfo.get("Stasiun Jatinegara"));
+        argoAnggrek.addDepartureTrack(stationInfo.get("Stasiun Gambir"));
 
         //Gambir - Surabaya Pasarturi
-        argoAnggrek.addDepartureTrack(stationInfo.get("Stasiun Gambir"));
-        argoAnggrek.addDepartureTrack(stationInfo.get("Stasiun Cirebon"));
-        argoAnggrek.addDepartureTrack(stationInfo.get("Stasiun Pekalongan"));
-        argoAnggrek.addDepartureTrack(stationInfo.get("Stasiun Semarang Tawang"));
-        argoAnggrek.addDepartureTrack(stationInfo.get("Stasiun Surabaya Pasarturi"));
+        argoAnggrek.addArrivalTrack(stationInfo.get("Stasiun Gambir"));
+        argoAnggrek.addArrivalTrack(stationInfo.get("Stasiun Cirebon"));
+        argoAnggrek.addArrivalTrack(stationInfo.get("Stasiun Pekalongan"));
+        argoAnggrek.addArrivalTrack(stationInfo.get("Stasiun Semarang Tawang"));
+        argoAnggrek.addArrivalTrack(stationInfo.get("Stasiun Surabaya Pasarturi"));
         trainInfo.put("Argo Anggrek | Surabaya Pasarturi - Gambir", argoAnggrek);
         this.listOfTrains[ctList++] = "Argo Anggrek | Surabaya Pasarturi - Gambir";
 
         //argo Dwipangga
         Train argoDwipangga = new Train ("Argo Dwipangga");
         //Solo Balapan - Gambir
-        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Solo Balapan"));
-        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Klaten"));
-        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Yogyakarta"));
-        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Kutoarjo"));
-        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Purwokerto"));
-        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Cirebon"));
-        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Jatinegara"));
-        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Gambir"));
+        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Solo Balapan"));
+        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Klaten"));
+        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Yogyakarta"));
+        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Kutoarjo"));
+        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Purwokerto"));
+        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Cirebon"));
+        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Jatinegara"));
+        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Gambir"));
 
         //Gambir - Solo Balapan
-        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Gambir"));
-        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Cirebon"));
-        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Purwokerto"));
-        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Kutoarjo"));
-        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Yogyakarta"));
-        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Klaten"));
-        argoDwipangga.addDepartureTrack(stationInfo.get("Stasiun Solo Balapan"));
+        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Gambir"));
+        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Cirebon"));
+        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Purwokerto"));
+        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Kutoarjo"));
+        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Yogyakarta"));
+        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Klaten"));
+        argoDwipangga.addArrivalTrack(stationInfo.get("Stasiun Solo Balapan"));
 
         trainInfo.put("Argo Dwipangga | Solo Balapan - Gambir", argoDwipangga);
         this.listOfTrains[ctList++] = "Argo Dwipangga | Solo Balapan - Gambir";
@@ -494,18 +499,68 @@ public class Database {
         //Kutoarjo
         Train sawunggalihUtama = new Train ("Sawunggalih Utama");
         //Kutoarjo - Pasar Senen
-        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Kutoarjo"));
-        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Kebumen"));
-        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Karanganyar"));
-        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Gombong"));
-        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Kroya"));
-        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Purwokerto"));
-        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Bumiayu"));
-        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Ciledug"));
-        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Cirebon"));
-        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Bekasi"));
-        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Jatinegara"));
+        sawunggalihUtama.addDepartureTrack(stationInfo.get("Stasiun Kutoarjo"));
+        sawunggalihUtama.addDepartureTrack(stationInfo.get("Stasiun Kebumen"));
+        sawunggalihUtama.addDepartureTrack(stationInfo.get("Stasiun Karanganyar"));
+        sawunggalihUtama.addDepartureTrack(stationInfo.get("Stasiun Gombong"));
+        sawunggalihUtama.addDepartureTrack(stationInfo.get("Stasiun Kroya"));
+        sawunggalihUtama.addDepartureTrack(stationInfo.get("Stasiun Purwokerto"));
+        sawunggalihUtama.addDepartureTrack(stationInfo.get("Stasiun Bumiayu"));
+        sawunggalihUtama.addDepartureTrack(stationInfo.get("Stasiun Ciledug"));
+        sawunggalihUtama.addDepartureTrack(stationInfo.get("Stasiun Cirebon"));
+        sawunggalihUtama.addDepartureTrack(stationInfo.get("Stasiun Bekasi"));
+        sawunggalihUtama.addDepartureTrack(stationInfo.get("Stasiun Jatinegara"));
+        sawunggalihUtama.addDepartureTrack(stationInfo.get("Stasiun Pasar Senen"));
+        //Pasar Senen - Kutoarjo
         sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Pasar Senen"));
+        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Cirebon"));
+        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Ciledug"));
+        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Bumiayu"));
+        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Purwokerto"));
+        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Kroya"));
+        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Gombong"));
+        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Karanganyar"));
+        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Kebumen"));
+        sawunggalihUtama.addArrivalTrack(stationInfo.get("Stasiun Kutoarjo"));
+        trainInfo.put("Sawunggalih Utama | Kutoarjo - Pasar Senen", sawunggalihUtama);
+        this.listOfTrains[ctList++] = "Sawunggalih Utama | Kutoarjo - Pasar Senen";
+
+        //Lodaya
+        Train lodaya = new Train ("Lodaya");
+        //Solo Balapan - Bandung
+        lodaya.addDepartureTrack(stationInfo.get("Stasiun Solo Balapan"));
+        lodaya.addDepartureTrack(stationInfo.get("Stasiun Klaten"));
+        lodaya.addDepartureTrack(stationInfo.get("Stasiun Yogyakarta"));
+        lodaya.addDepartureTrack(stationInfo.get("Stasiun Wates"));
+        lodaya.addDepartureTrack(stationInfo.get("Stasiun Kutoarjo"));
+        lodaya.addDepartureTrack(stationInfo.get("Stasiun Kebumen"));
+        lodaya.addDepartureTrack(stationInfo.get("Stasiun Sidareja"));
+        lodaya.addDepartureTrack(stationInfo.get("Stasiun Meluwung"));
+        lodaya.addDepartureTrack(stationInfo.get("Stasiun Banjar"));
+        lodaya.addDepartureTrack(stationInfo.get("Stasiun Tasikmalaya"));
+        lodaya.addDepartureTrack(stationInfo.get("Stasiun Cipeundeuy"));
+        lodaya.addDepartureTrack(stationInfo.get("Stasiun Kiaracondong"));
+        lodaya.addDepartureTrack(stationInfo.get("Stasiun Bandung"));
+
+        //Bandung - Solo Balapan
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Bandung"));
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Kiaracondong"));
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Cipeundeuy"));
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Tasikmalaya"));
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Banjar"));
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Sidareja"));
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Maos"));
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Ijo"));
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Gombong"));
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Kutoarjo"));
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Wates"));
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Yogyakarta"));
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Klaten"));
+        lodaya.addArrivalTrack(stationInfo.get("Stasiun Solo Balapan"));
+
+        trainInfo.put("Lodaya | Solo Balapan - Bandung", lodaya);
+        this.listOfTrains[ctList++] = "Lodaya | Solo Balapan - Bandung";
+
         Arrays.sort(this.listOfTrains);
     }
 
