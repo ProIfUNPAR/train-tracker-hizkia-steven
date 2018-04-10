@@ -136,7 +136,7 @@ public class Database {
         stationInfo.put("Stasiun Sruweng", new Station("Stasiun Sruweng",-7.6552205,109.6030586));
         stationInfo.put("Stasiun Caruban", new Station("Stasiun Caruban",-7.551131, 111.654815));
         stationInfo.put("Stasiun Solo Jebres", new Station("Stasiun Solo Jebres",-7.562221, 110.839500));
-        stationInfo.put("Stasiun Cilacap", new Station("Stasiun ",-7.736050, 109.007068));
+        stationInfo.put("Stasiun Cilacap", new Station("Stasiun Cilacap",-7.736050, 109.007068));
         //stationInfo.put("Stasiun ", new Station("Stasiun ", ));
 
         // untuk testing aplikasi
