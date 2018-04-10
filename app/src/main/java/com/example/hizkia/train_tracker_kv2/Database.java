@@ -41,7 +41,7 @@ public class Database {
 
     public void initStation (){
 
-        stationInfo.put("Stasiun Bandung", new Station("Stasiun Bandung", -6.912594, 107.602400));
+        stationInfo.put("Stasiun Bandung", new Station("Stasiun Bandung",-6.912594, 107.602400));
         stationInfo.put("Stasiun Cimahi", new Station("Stasiun Cimahi", -6.885734, 107.536124));
         stationInfo.put("Stasiun Purwakarta", new Station("Stasiun Purwakarta", -6.5529825,107.4452251));
         stationInfo.put("Stasiun Cikampek", new Station("Stasiun Cikampek", -6.406378, 107.458955));
@@ -62,7 +62,6 @@ public class Database {
         stationInfo.put("Stasiun Cepu", new Station("Stasiun Cepu", -7.154512, 111.590826));
         stationInfo.put("Stasiun Ngrombo", new Station("Stasiun Ngrombo", -7.145438, 110.900774));
         stationInfo.put("Stasiun Pemalang", new Station("Stasiun Pemalang", -6.887310, 109.388225));
-        stationInfo.put("Stasiun Jatinegara", new Station("Stasiun Jatinegara", -6.215092, 106.870372));
         stationInfo.put("Stasiun Pasarsenen", new Station("Stasiun Pasarsenen", -6.174940, 106.845394));
         stationInfo.put("Stasiun Arjawinangun", new Station("Stasiun Arjawinangun", -6.644666, 108.414547));
         stationInfo.put("Stasiun Brebes", new Station("Stasiun Brebes", -6.874526, 109.043867));
@@ -125,6 +124,14 @@ public class Database {
         stationInfo.put("Stasiun Meluwung", new Station("Stasiun Meluwung",-7.394298, 108.699520));
         stationInfo.put("Stasiun Maos", new Station("Stasiun Maos",-7.619081, 109.139463));
         stationInfo.put("Stasiun Ijo", new Station("Stasiun Ijo",-7.615272, 109.446940));
+        stationInfo.put("Stasiun Lawang", new Station("Stasiun Lawang",-7.836702, 112.697636));
+        stationInfo.put("Stasiun Ciamis", new Station("Stasiun Ciamis",-7.329368, 108.355991));
+        stationInfo.put("Stasiun Cicalengka", new Station("Stasiun Cicalengka",-6.981545, 107.832663));
+        stationInfo.put("Stasiun Kemranjen", new Station("Stasiun Kemranjen",-7.621419, 109.314908));
+        stationInfo.put("Stasiun Leles", new Station("Stasiun Leles",-7.084445, 107.899659));
+        stationInfo.put("Stasiun Porong", new Station("Stasiun Porong",-7.538350, 112.701672));
+        //stationInfo.put("Stasiun ", new Station("Stasiun ",));
+
 
                 //stationInfo.put("Stasiun ", new Station("Stasiun ", ));
 
@@ -560,6 +567,65 @@ public class Database {
 
         trainInfo.put("Lodaya | Solo Balapan - Bandung", lodaya);
         this.listOfTrains[ctList++] = "Lodaya | Solo Balapan - Bandung";
+
+        //Mutiara Selatan
+        Train mutiaraSelatan = new Train("Mutiara Selatan");
+        //Malang - Bandung
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Malang"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Lawang"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Bangil"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Sidoarjo"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Surabaya Gubeng"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Mojokerto"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Jombang"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Kertosono"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Nganjuk"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Madiun"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Solo Balapan"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Yogyakarta"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Kutoarjo"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Kebumen"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Gombong"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Kroya"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Maos"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Banjar"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Ciamis"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Tasikmalaya"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Cipeundeuy"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Cicalengka"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Kiaracondong"));
+        mutiaraSelatan.addDepartureTrack(stationInfo.get("Stasiun Bandung"));
+
+        //Bandung - Malang
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Bandung"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Kiaracondong"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Leles"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Cipeundeuy"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Tasikmalaya"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Ciamis"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Banjar"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Kroya"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Kemranjen"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Ijo"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Gombong"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Kebumen"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Kutoarjo"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Yogyakarta"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Solo Balapan"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Madiun"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Nganjuk"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Kertosono"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Jombang"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Mojokerto"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Surabaya Gubeng"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Sidoarjo"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Porong"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Bangil"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Lawang"));
+        mutiaraSelatan.addArrivalTrack(stationInfo.get("Stasiun Malang"));
+
+        //trainInfo.put("", );
+        //this.listOfTrains[ctList++] = "";
 
         Arrays.sort(this.listOfTrains);
     }
