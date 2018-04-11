@@ -50,8 +50,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
-    private TextView tvDistance, tvEta, tvSpeed, txtStation;
-    private Location tempLocation1, tempLocation2;
+    private TextView tvDistance, tvEta, tvSpeed, txtStation, tvDistanceNext, tvEtaNext, txtStationNext;
+    private Location tempLocation1, tempLocation2, currLocation;
     private float totalDistance;
     private String sourceStation, destStation;
     private ArrayList<Station> listStations;
@@ -66,15 +66,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
         getLocationPermission();
 
+        this.tvSpeed = this.findViewById(R.id.valueSpeed);
         this.tvDistance = this.findViewById(R.id.valueDistance);
         this.tvEta = this.findViewById(R.id.valueETA);
-        this.tvSpeed = this.findViewById(R.id.valueSpeed);
         this.txtStation = this.findViewById(R.id.txtStationDetail);
+        this.tvDistanceNext = this.findViewById(R.id.valueDistanceNext);
+        this.tvEtaNext = this.findViewById(R.id.valueETANext);
+        this.txtStationNext = this.findViewById(R.id.txtStationNext);
 
 
         this.sourceStation = TracksActivity.sourceStation;
         this.destStation = TracksActivity.destStation;
-        this.txtStation.setText(this.sourceStation + " - "+ this.destStation);
+        //this.txtStation.setText(this.sourceStation + " - "+ this.destStation);
 
 
         this.totalDistance = 0;
@@ -145,7 +148,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onComplete(@NonNull Task task) {
                         if(task.isSuccessful()){
                             Log.d(TAG, "onComplete: location found");
-                            Location currLocation = (Location) task.getResult();
+                            currLocation = (Location) task.getResult();
 
                             moveCamera(new LatLng(currLocation.getLatitude(), currLocation.getLongitude()), DEFAULT_ZOOM);
                         } else {
@@ -155,7 +158,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
 
-                for(int i = 0; i<listStations.size() - 1; i++){
+                for(int i = 0; i < listStations.size() - 1; i++){
                     Station temp1 = listStations.get(i);
                     Station temp2 = listStations.get(i + 1);
 
@@ -168,7 +171,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     tempLocation2.setLatitude(temp2.getLatitude());
                     tempLocation2.setLongitude(temp2.getLongitude());
 
-                    totalDistance += (tempLocation1.distanceTo(tempLocation2)/ 1000);
+                    totalDistance += calculateDistance(tempLocation1, tempLocation2);
+                }
+
+                txtStation.setText(listStations.get(listStations.size() - 1).getNamaStasiun());
+                tvDistance.setText(String.format("%.1f", totalDistance));
+                tvEta.setText(calculateETA(30, totalDistance));
+
+                if(ct == 0) {
+                    tempLocation1 = new Location("");
+                    tempLocation1.setLongitude(listStations.get(1).getLongitude());
+                    tempLocation1.setLatitude(listStations.get(1).getLatitude());
+                    float initialDistance = calculateDistance(currLocation, tempLocation1);
+
+                    txtStationNext.setText(listStations.get(1).getNamaStasiun());
+                    tvDistanceNext.setText(String.format("%.1f", initialDistance));
+                    tvEtaNext.setText(calculateETA(30, initialDistance));
                 }
 
                 LocationManager locManager = (LocationManager) this
@@ -181,37 +199,42 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         //Toast.makeText(getApplicationContext(), "Current speed:" + location.getSpeed(),
                                 //Toast.LENGTH_SHORT).show();
 
-                        float speed = location.getSpeed();
-                        speed = speed * 3600 / 1000;
+                        currLocation = location;
+                        float speed = calculateSpeed();
                         tvSpeed.setText(String.format("%.1f", speed));
 
-                        Location temp1 = new Location("");
-                        temp1.setLongitude(listStations.get(ct).getLongitude());
-                        temp1.setLatitude(listStations.get(ct).getLatitude());
-                        float distanceCurr = location.distanceTo(temp1) / 1000;
+                        Station curStation = listStations.get(ct);
+                        tempLocation1 = new Location("");
+                        tempLocation1.setLongitude(curStation.getLongitude());
+                        tempLocation1.setLatitude(curStation.getLatitude());
+                        float distanceCurr = calculateDistance(currLocation, tempLocation1);
 
-                        if(distanceCurr <= 500 && ct < 1) {
+                        if(ct > 0){
+                            tvDistanceNext.setText(String.format("%.1f", distanceCurr));
+                            tvEtaNext.setText(calculateETA(speed, distanceCurr));
+                        }
+
+                        if (distanceCurr <= 10 && ct < listStations.size()) {
                             ct++;
-                            //if(ct == listStations.size())
+                            if (ct == listStations.size()) {
                                 notificationCall("Your train has arrived!");
-                            Location temp2 = new Location("");
-                            temp2.setLongitude(listStations.get(ct).getLongitude());
-                            temp2.setLatitude(listStations.get(ct).getLatitude());
+                            }
+                            else {
+                                Station nextStation = listStations.get(ct);
+                                txtStationNext.setText(nextStation.getNamaStasiun());
 
-                            totalDistance = totalDistance - (temp1.distanceTo(temp2) / 1000);
+                                tempLocation2 = new Location("");
+                                tempLocation2.setLongitude(nextStation.getLongitude());
+                                tempLocation2.setLatitude(nextStation.getLatitude());
+
+                                totalDistance = totalDistance - calculateDistance(tempLocation1, tempLocation2);
+                            }
                         }
                         float distance = totalDistance + distanceCurr;
                         tvDistance.setText(String.format("%.1f", distance));
 
-                        float eta;
-                        if(speed <= 30)eta = distance / 30;
-                        else eta = distance / speed;
-                        if(eta < 0.09)notificationCall("Your train will arrive in 5 minutes!");
-                        int second = (int)(((eta % 1) * 3600) % 60);
-                        int minute = (int)((eta % 1) * 60 ) % 60;
-                        int hour = (int)(eta);
-                        //String resultTimeText = String.format("%2d:%2d:%2d", hour, minute, second);
-                        tvEta.setText(String.format("%02d H : %02d M : %02d S",hour, minute, second));
+                        String eta = calculateETA(speed, distance);
+                        tvEta.setText(eta);
                     }
 
                     @Override
@@ -233,7 +256,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100,
                         1, locListener);
                 locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
             }
         } catch (SecurityException e){
             Log.e(TAG, "getDeviceLocation(): SecurityException: " + e.getMessage());
@@ -305,5 +327,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         }
+    }
+
+    public float calculateSpeed(){
+        float speed = currLocation.getSpeed();
+        speed = speed * 3600 / 1000;
+        return speed;
+    }
+
+    public float calculateDistance(Location loc1, Location loc2){
+        return loc1.distanceTo(loc2) / 1000;
+    }
+
+    public String calculateETA(float speed, float distance){
+        float eta;
+        if(speed <= 30)eta = distance / 30;
+        else eta = distance / speed;
+        if(eta < 0.09)notificationCall("Your train will arrive in 5 minutes!");
+        int second = (int)(((eta % 1) * 3600) % 60);
+        int minute = (int)((eta % 1) * 60 ) % 60;
+        int hour = (int)(eta);
+        String resultTimeText = String.format("%02d H : %02d M : %02d S",hour, minute, second);
+        return resultTimeText;
     }
 }
