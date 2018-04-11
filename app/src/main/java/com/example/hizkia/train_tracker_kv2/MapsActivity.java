@@ -180,9 +180,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 if(ct == 0) {
                     tempLocation1 = new Location("");
-                    tempLocation1.setLongitude(listStations.get(1).getLongitude());
-                    tempLocation1.setLatitude(listStations.get(1).getLatitude());
-                    float initialDistance = calculateDistance(currLocation, tempLocation1);
+                    tempLocation1.setLongitude(listStations.get(0).getLongitude());
+                    tempLocation1.setLatitude(listStations.get(0).getLatitude());
+
+
+                    tempLocation2 = new Location("");
+                    tempLocation2.setLongitude(listStations.get(1).getLongitude());
+                    tempLocation2.setLatitude(listStations.get(1).getLatitude());
+                    float initialDistance = calculateDistance(tempLocation1, tempLocation2);
 
                     txtStationNext.setText(listStations.get(1).getNamaStasiun());
                     tvDistanceNext.setText(String.format("%.1f", initialDistance));
