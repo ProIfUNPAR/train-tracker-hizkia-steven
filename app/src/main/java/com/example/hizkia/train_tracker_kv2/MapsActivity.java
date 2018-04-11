@@ -51,7 +51,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FusedLocationProviderClient fusedLocationProviderClient;
 
     private TextView tvDistance, tvEta, tvSpeed, txtStation;
-    private Location tempLocation1, tempLocation2;
+    private Location tempLocation1, tempLocation2, currLocation;
     private float totalDistance;
     private String sourceStation, destStation;
     private ArrayList<Station> listStations;
@@ -145,7 +145,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onComplete(@NonNull Task task) {
                         if(task.isSuccessful()){
                             Log.d(TAG, "onComplete: location found");
-                            Location currLocation = (Location) task.getResult();
+                            currLocation = (Location) task.getResult();
 
                             moveCamera(new LatLng(currLocation.getLatitude(), currLocation.getLongitude()), DEFAULT_ZOOM);
                         } else {
@@ -168,8 +168,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     tempLocation2.setLatitude(temp2.getLatitude());
                     tempLocation2.setLongitude(temp2.getLongitude());
 
-                    totalDistance += (tempLocation1.distanceTo(tempLocation2)/ 1000);
+                    totalDistance += calculateDistance(tempLocation1, tempLocation2);
                 }
+
+                tvDistance.setText(String.format("%.1f", totalDistance));
+                tvEta.setText(calculateETA(30, totalDistance));
 
                 LocationManager locManager = (LocationManager) this
                         .getSystemService(Context.LOCATION_SERVICE);
@@ -181,37 +184,30 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         //Toast.makeText(getApplicationContext(), "Current speed:" + location.getSpeed(),
                                 //Toast.LENGTH_SHORT).show();
 
-                        float speed = location.getSpeed();
-                        speed = speed * 3600 / 1000;
+                        currLocation = location;
+                        float speed = calculateSpeed();
                         tvSpeed.setText(String.format("%.1f", speed));
 
-                        Location temp1 = new Location("");
-                        temp1.setLongitude(listStations.get(ct).getLongitude());
-                        temp1.setLatitude(listStations.get(ct).getLatitude());
-                        float distanceCurr = location.distanceTo(temp1) / 1000;
+                        tempLocation1 = new Location("");
+                        tempLocation1.setLongitude(listStations.get(ct).getLongitude());
+                        tempLocation1.setLatitude(listStations.get(ct).getLatitude());
+                        float distanceCurr = calculateDistance(currLocation, tempLocation1);
 
-                        if(distanceCurr <= 500 && ct < 1) {
+                        if(distanceCurr <= 10) {
                             ct++;
-                            //if(ct == listStations.size())
+                            if(ct == listStations.size())
                                 notificationCall("Your train has arrived!");
-                            Location temp2 = new Location("");
-                            temp2.setLongitude(listStations.get(ct).getLongitude());
-                            temp2.setLatitude(listStations.get(ct).getLatitude());
+                            tempLocation2 = new Location("");
+                            tempLocation2.setLongitude(listStations.get(ct).getLongitude());
+                            tempLocation2.setLatitude(listStations.get(ct).getLatitude());
 
-                            totalDistance = totalDistance - (temp1.distanceTo(temp2) / 1000);
+                            totalDistance = totalDistance - calculateDistance(tempLocation1, tempLocation2);
                         }
                         float distance = totalDistance + distanceCurr;
                         tvDistance.setText(String.format("%.1f", distance));
 
-                        float eta;
-                        if(speed <= 30)eta = distance / 30;
-                        else eta = distance / speed;
-                        if(eta < 0.09)notificationCall("Your train will arrive in 5 minutes!");
-                        int second = (int)(((eta % 1) * 3600) % 60);
-                        int minute = (int)((eta % 1) * 60 ) % 60;
-                        int hour = (int)(eta);
-                        //String resultTimeText = String.format("%2d:%2d:%2d", hour, minute, second);
-                        tvEta.setText(String.format("%02d H : %02d M : %02d S",hour, minute, second));
+                        String eta = calculateETA(speed, distance);
+                        tvEta.setText(eta);
                     }
 
                     @Override
@@ -233,7 +229,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100,
                         1, locListener);
                 locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
             }
         } catch (SecurityException e){
             Log.e(TAG, "getDeviceLocation(): SecurityException: " + e.getMessage());
@@ -305,5 +300,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         }
+    }
+
+    public float calculateSpeed(){
+        float speed = currLocation.getSpeed();
+        speed = speed * 3600 / 1000;
+        return speed;
+    }
+
+    public float calculateDistance(Location loc1, Location loc2){
+        return loc1.distanceTo(loc2) / 1000;
+    }
+
+    public String calculateETA(float speed, float distance){
+        float eta;
+        if(speed <= 30)eta = distance / 30;
+        else eta = distance / speed;
+        if(eta < 0.09)notificationCall("Your train will arrive in 5 minutes!");
+        int second = (int)(((eta % 1) * 3600) % 60);
+        int minute = (int)((eta % 1) * 60 ) % 60;
+        int hour = (int)(eta);
+        String resultTimeText = String.format("%02d H : %02d M : %02d S",hour, minute, second);
+        return resultTimeText;
     }
 }
