@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.StaticLayout;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import android.widget.Button;
@@ -55,6 +56,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 android.R.layout.simple_spinner_item,this.listOfTrains);
         trainsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTrains.setAdapter(trainsAdapter);
+
+        //SET LISTENER FOR SPINNER
+        spTrains.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                //System.out.println(spTrains.getSelectedItem().toString());
+
+                String selectedTrain = spTrains.getSelectedItem().toString();
+                if(selectedTrain.indexOf("|")!= -1 && selectedTrain.indexOf("-")!= -1){
+                    String asal = selectedTrain.substring(selectedTrain.indexOf("|")+2,selectedTrain.indexOf("-")-1); //+1 because in a code it has a space
+                    String tujuan = selectedTrain.substring(selectedTrain.indexOf("-")+2);
+
+                    rbStart.setText(asal +" - "+tujuan);
+                    rbEnd.setText(tujuan +" - "+asal);
+                }else{
+                    rbStart.setText("asal" +" - "+ "tujuan");
+                    rbEnd.setText("tujuan" +" - "+"asal");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
         //SET ALL ADAPTER END
 
         //SET INITIAL RADIO BUTTON
