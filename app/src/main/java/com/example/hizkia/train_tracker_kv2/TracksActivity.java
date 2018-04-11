@@ -63,23 +63,31 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
 
         //move each name of station on list stations to array of string
         String[] arrStation = new String[listStations.size()];
+        String[] sourceStation = new String[listStations.size()-1];
+        String[] destStation = new String[listStations.size()-1];
         int i;
         for(i=0; i<arrStation.length; i++){
             arrStation[i] = listStations.get(i).getNamaStasiun();
+            if(i!=arrStation.length-1)sourceStation[i] = arrStation[i];
+            if(i!=0)destStation[i-1] = arrStation[i];
         }
 
         //SET ALL ADAPTER START
             //Adapter for current station
         ArrayAdapter<String> currAdapt = new ArrayAdapter<String>(TracksActivity.this,
-                android.R.layout.simple_spinner_item,arrStation);
+                android.R.layout.simple_spinner_item,sourceStation);
         currAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCurr.setAdapter(currAdapt);
 
             //Adapter for destination station
         final ArrayAdapter<String> destAdapt = new ArrayAdapter<String>(TracksActivity.this,
-                android.R.layout.simple_spinner_item,arrStation);
+                android.R.layout.simple_spinner_item,destStation);
         destAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spDest.setAdapter(destAdapt);
+
+        final ArrayAdapter<String> fullStation = new ArrayAdapter<String>(TracksActivity.this,
+                android.R.layout.simple_spinner_item,arrStation);
+        destAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //SET ALL ADAPTER END
 
         //SET INITIAL INDEX OF SPINNER SOURCE AND SPINNER DESTINATION START
@@ -93,24 +101,20 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
                 int idxCurr = spCurr.getSelectedItemPosition();
-                if(idxCurr == spCurr.getAdapter().getCount()-1){
-                   idxCurr =  spCurr.getAdapter().getCount()-2;
-                }
-                if(idxCurr != 0 ){
-                    String[] arrStationChange = new String[destAdapt.getCount()-idxCurr-1];
-                    int i;
-                    for(i=0; i<arrStationChange.length; i++){
-                        arrStationChange[i] = (String)spCurr.getItemAtPosition(++idxCurr);
-                        System.out.println(arrStationChange[i]);
-                    }
 
-                    //Adapter for new destination stations
-                    ArrayAdapter<String> destAdapt = new ArrayAdapter<String>(TracksActivity.this,
-                            android.R.layout.simple_spinner_item,arrStationChange);
-                    destAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spDest.setAdapter(destAdapt);
-                    spDest.setSelection(spDest.getAdapter().getCount()-1); //set destination do last station
+                String[] arrStationChange = new String[destAdapt.getCount()-idxCurr];
+                int i;
+                for(i=0; i<arrStationChange.length; i++){
+                    arrStationChange[i] = (String)fullStation.getItem(++idxCurr);
+                    System.out.println(arrStationChange[i]);
                 }
+
+                //Adapter for new destination stations
+                ArrayAdapter<String> destAdapt = new ArrayAdapter<String>(TracksActivity.this,
+                        android.R.layout.simple_spinner_item,arrStationChange);
+                destAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spDest.setAdapter(destAdapt);
+                spDest.setSelection(spDest.getAdapter().getCount()-1); //set destination do last station
             }
 
             @Override
