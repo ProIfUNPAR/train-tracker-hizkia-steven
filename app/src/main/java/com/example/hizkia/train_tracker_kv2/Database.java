@@ -934,7 +934,7 @@ public class Database {
         bangunkarta.addArrivalTrack(stationInfo.get("Stasiun Madiun"));
         bangunkarta.addArrivalTrack(stationInfo.get("Stasiun Caruban"));
         bangunkarta.addArrivalTrack(stationInfo.get("Stasiun Nganjuk"));
-        bangunkarta.addArrivalTrack(stationInfo.get("StasiunKertosono"));
+        bangunkarta.addArrivalTrack(stationInfo.get("Stasiun Kertosono"));
         bangunkarta.addArrivalTrack(stationInfo.get("Stasiun Jombang"));
         bangunkarta.addArrivalTrack(stationInfo.get("Stasiun Mojokerto"));
         bangunkarta.addArrivalTrack(stationInfo.get("Stasiun Surabaya Gubeng"));
