@@ -175,4 +175,10 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(TracksActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
 }

@@ -3,6 +3,7 @@ package com.example.hizkia.train_tracker_kv2;
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
@@ -354,5 +355,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         int hour = (int)(eta);
         String resultTimeText = String.format("%02d H : %02d M : %02d S",hour, minute, second);
         return resultTimeText;
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MapsActivity.this, TracksActivity.class);
+        startActivity(intent);
     }
 }
