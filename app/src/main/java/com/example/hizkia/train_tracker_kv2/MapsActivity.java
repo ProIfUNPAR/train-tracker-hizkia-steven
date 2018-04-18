@@ -57,6 +57,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String sourceStation, destStation;
     private ArrayList<Station> listStations;
     private int ct;
+    private static final int JARAK_ASUMSI_SAMPAI = 1;
 
     private Polyline line;
     private PolylineOptions lineOpt;
@@ -204,43 +205,44 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         //location.getLatitude();
                         //Toast.makeText(getApplicationContext(), "Current speed:" + location.getSpeed(),
                                 //Toast.LENGTH_SHORT).show();
+                        if(ct < listStations.size()){
+                            currLocation = location;
+                            float speed = calculateSpeed();
+                            tvSpeed.setText(String.format("%.1f", speed));
 
-                        currLocation = location;
-                        float speed = calculateSpeed();
-                        tvSpeed.setText(String.format("%.1f", speed));
+                            Station curStation = listStations.get(ct);
+                            tempLocation1 = new Location("");
+                            tempLocation1.setLongitude(curStation.getLongitude());
+                            tempLocation1.setLatitude(curStation.getLatitude());
+                            float distanceCurr = calculateDistance(currLocation, tempLocation1);
 
-                        Station curStation = listStations.get(ct);
-                        tempLocation1 = new Location("");
-                        tempLocation1.setLongitude(curStation.getLongitude());
-                        tempLocation1.setLatitude(curStation.getLatitude());
-                        float distanceCurr = calculateDistance(currLocation, tempLocation1);
-
-                        if(ct > 0){
-                            tvDistanceNext.setText(String.format("%.1f", distanceCurr));
-                            tvEtaNext.setText(calculateETA(speed, distanceCurr));
-                        }
-
-                        if (distanceCurr <= 10 && ct < listStations.size()) {
-                            ct++;
-                            if (ct == listStations.size()) {
-                                notificationCall("Your train has arrived!");
+                            if(ct > 0){
+                                tvDistanceNext.setText(String.format("%.1f", distanceCurr));
+                                tvEtaNext.setText(calculateETA(speed, distanceCurr));
                             }
-                            else {
-                                Station nextStation = listStations.get(ct);
-                                txtStationNext.setText(nextStation.getNamaStasiun());
 
-                                tempLocation2 = new Location("");
-                                tempLocation2.setLongitude(nextStation.getLongitude());
-                                tempLocation2.setLatitude(nextStation.getLatitude());
+                            if (distanceCurr <= JARAK_ASUMSI_SAMPAI && ct < listStations.size()) {
+                                ct++;
+                                if (ct == listStations.size()) {
+                                    notificationCall("Your train has arrived!");
+                                }
+                                else {
+                                    Station nextStation = listStations.get(ct);
+                                    txtStationNext.setText(nextStation.getNamaStasiun());
 
-                                totalDistance = totalDistance - calculateDistance(tempLocation1, tempLocation2);
+                                    tempLocation2 = new Location("");
+                                    tempLocation2.setLongitude(nextStation.getLongitude());
+                                    tempLocation2.setLatitude(nextStation.getLatitude());
+
+                                    totalDistance = totalDistance - calculateDistance(tempLocation1, tempLocation2);
+                                }
                             }
-                        }
-                        float distance = totalDistance + distanceCurr;
-                        tvDistance.setText(String.format("%.1f", distance));
+                            float distance = totalDistance + distanceCurr;
+                            tvDistance.setText(String.format("%.1f", distance));
 
-                        String eta = calculateETA(speed, distance);
-                        tvEta.setText(eta);
+                            String eta = calculateETA(speed, distance);
+                            tvEta.setText(eta);
+                        }
                     }
 
                     @Override
