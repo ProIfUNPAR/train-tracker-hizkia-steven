@@ -140,10 +140,10 @@ public class Database {
         //stationInfo.put("Stasiun ", new Station("Stasiun ", ));
 
         // untuk testing aplikasi
-        stationInfo.put("unpar",new Station("unpar",-6.873485, 107.604630));
-        stationInfo.put("ciwalk",new Station("ciwalk",-6.893640, 107.605595));
-        stationInfo.put("istana plaza", new Station("istana plaza", -6.905661, 107.596791));
-        stationInfo.put("haris", new Station("haris", -6.905661, 107.596791));
+        stationInfo.put("Stasiun Unpar",new Station("Stasiun Unpar",-6.873485, 107.604630));
+        stationInfo.put("Stasiun Ciwalk",new Station("Stasiun Ciwalk",-6.893640, 107.605595));
+        stationInfo.put("Stasiun Istana Plaza", new Station("Stasiun Istana Plaza", -6.905661, 107.596791));
+        stationInfo.put("Stasiun Haris", new Station("Stasiun Haris", -6.905661, 107.596791));
     }
 
     public void initTrain(){
@@ -452,17 +452,17 @@ public class Database {
 
 
         //train testing
-        Train testing = new Train ("testingTrain");
-        testing.addArrivalTrack(stationInfo.get("unpar"));
-        testing.addArrivalTrack(stationInfo.get("ciwalk"));
-        testing.addArrivalTrack(stationInfo.get("istana plaza"));
+        Train testing = new Train ("testing");
+        testing.addDepartureTrack(stationInfo.get("Stasiun Unpar"));
+        testing.addDepartureTrack(stationInfo.get("Stasiun Ciwalk"));
+        testing.addDepartureTrack(stationInfo.get("Stasiun Istana Plaza"));
 
-        testing.addDepartureTrack((stationInfo.get("istana plaza")));
-        testing.addDepartureTrack((stationInfo.get("ciwalk")));
-        testing.addDepartureTrack((stationInfo.get("unpar")));
+        testing.addArrivalTrack((stationInfo.get("Stasiun Istana Plaza")));
+        testing.addArrivalTrack((stationInfo.get("Stasiun Ciwalk")));
+        testing.addArrivalTrack((stationInfo.get("Stasiun Unpar")));
 
-        trainInfo.put("testing",testing);
-        this.listOfTrains[ctList++] = "testing";
+        trainInfo.put("testing | Unpar - Istana Plaza",testing);
+        this.listOfTrains[ctList++] = "testing | Unpar - Istana Plaza";
 
         // argo bromo anggrek-eksekutif
         Train argoAnggrek = new Train("Argo Anggrek");
