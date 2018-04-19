@@ -1,7 +1,9 @@
 package com.example.hizkia.train_tracker_kv2;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -132,7 +134,13 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
         //Button Go Clicked
         if(view.getId() == btnGoMap.getId()) {
             Intent intent = new Intent(TracksActivity.this, MapsActivity.class);
-            startActivity(intent);
+            //Check if GPS is ON or OFF
+            if(this.getGPSStatus()){
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(this, "Please TURN ON your GPS", Toast.LENGTH_SHORT).show();
+            }
         }
         else if(view.getId() == btnBack.getId()){
             Intent intent = new Intent(TracksActivity.this, MainActivity.class);
@@ -176,6 +184,17 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
     public void onNothingSelected(AdapterView<?> adapterView) {
     }
 
+    //Get if GPS status is ON/TRUE or OFF/FALSE
+    public boolean getGPSStatus(){
+
+        LocationManager locationManager;
+        Context context = getApplicationContext();
+        locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    //Back to activity_main using device's back button
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(TracksActivity.this, MainActivity.class);
