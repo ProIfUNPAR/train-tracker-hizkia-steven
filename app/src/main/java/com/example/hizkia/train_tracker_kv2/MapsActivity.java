@@ -77,6 +77,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.txtStationNext = this.findViewById(R.id.txtStationNext);
 
 
+        System.out.println(TracksActivity.sourceStation);
+
         this.sourceStation = TracksActivity.sourceStation;
         this.destStation = TracksActivity.destStation;
         //this.txtStation.setText(this.sourceStation + " - "+ this.destStation);
@@ -100,6 +102,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
             mMap.setMyLocationEnabled(true);
 
+            System.out.println(this.sourceStation);
+
             Station startStation = Database.getStationInfo(this.sourceStation);
             LatLng start = new LatLng( startStation.getLatitude(),startStation.getLongitude());
             mMap.addMarker(new MarkerOptions().position(start).title(startStation.getNamaStasiun()));
@@ -108,7 +112,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             //Log.d("onMapReady", "Longitude start : " + startStation.getLongitude());
 
             //GET LIST OF STATIONS ON TRACK
-            if(!MainActivity.isArrival){
+            if(!Database.isArrival){
                 listStations = Database.getStationOnTrack(this.sourceStation,this.destStation,0);
             }else{
                 listStations = Database.getStationOnTrack(this.sourceStation,this.destStation,1);

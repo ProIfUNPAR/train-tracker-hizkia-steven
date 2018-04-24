@@ -56,11 +56,15 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
 
         //GET list of stations from the chosen train
         Database db = new Database();
+        Log.d("idxSpCurInit", Database.idxSpCur + "");
+        Log.d("idxSpDestInit", Database.idxSpDest + "");
         ArrayList<Station>  listStations;
-        if(MainActivity.isArrival){
-            listStations = db.getTrainInfo(MainActivity.activeTrain).arrivalTrack;
+        if(Database.isArrival){
+            System.out.println("di sini :"+ Database.activeTrain);
+            listStations = db.getTrainInfo(Database.activeTrain).arrivalTrack;
         }else{
-            listStations = db.getTrainInfo(MainActivity.activeTrain).departureTrack;
+            System.out.println("di sini :"+ Database.activeTrain);
+            listStations = db.getTrainInfo(Database.activeTrain).departureTrack;
         }
 
         //move each name of station on list stations to array of string
@@ -75,13 +79,13 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         //SET ALL ADAPTER START
-            //Adapter for current station
+        //Adapter for current station
         ArrayAdapter<String> currAdapt = new ArrayAdapter<String>(TracksActivity.this,
                 android.R.layout.simple_spinner_item,sourceStation);
         currAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCurr.setAdapter(currAdapt);
 
-            //Adapter for destination station
+        //Adapter for destination station
         final ArrayAdapter<String> destAdapt = new ArrayAdapter<String>(TracksActivity.this,
                 android.R.layout.simple_spinner_item,destStation);
         destAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -93,8 +97,25 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
         //SET ALL ADAPTER END
 
         //SET INITIAL INDEX OF SPINNER SOURCE AND SPINNER DESTINATION START
-        spCurr.setSelection(0);
-        spDest.setSelection(spDest.getAdapter().getCount()-1);
+        if(Database.idxSpCur != -1){
+            Log.d("idxSpCurTag",  Database.idxSpCur + " " + this.spCurr.getSelectedItem().toString());
+            spCurr.setSelection(Database.idxSpCur);
+            Log.d("idxSpCurTagAfter",  Database.idxSpCur + " " + this.spCurr.getSelectedItem().toString());
+        }
+        else{
+            spCurr.setSelection(0);
+            Database.idxSpCur = 0;
+        }
+        if(Database.idxSpDest != -1){
+            Log.d("idxSpDestTag", Database.idxSpDest + " " + this.spDest.getSelectedItem().toString());
+            spDest.setSelection(Database.idxSpDest);
+            Log.d("idxSpDestTagAfter", Database.idxSpDest + " " + this.spDest.getSelectedItem().toString());
+        }
+        else{
+            spDest.setSelection(spDest.getAdapter().getCount()-1);
+            Database.idxSpDest = spDest.getAdapter().getCount()-1;
+        }
+
         //SET INITIAL INDEX END
 
         //SET LISTENER FOR SPINNER CURR
@@ -103,6 +124,8 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
                 int idxCurr = spCurr.getSelectedItemPosition();
+                Database.idxSpCur = idxCurr;
+                Log.d("idxSpCur", Database.idxSpCur + "");
 
                 String[] arrStationChange = new String[destAdapt.getCount()-idxCurr];
                 int i;
@@ -125,6 +148,19 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
             }
 
         });
+        //SET LISTENER FOR SPINNER DEST
+        spDest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                int idxDest = spDest.getSelectedItemPosition();
+                Database.idxSpDest = idxDest;
+                Log.d("idxSpDest", Database.idxSpDest + "");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
     }
 
     //PUT EVERY ONCLICK FUNCTION HERE
@@ -133,6 +169,10 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         //Button Go Clicked
         if(view.getId() == btnGoMap.getId()) {
+            sourceStation = this.spCurr.getSelectedItem().toString();
+            System.out.println("source = " + sourceStation);
+            destStation = this.spDest.getSelectedItem().toString();
+            System.out.println("destination = " + destStation);
             Intent intent = new Intent(TracksActivity.this, MapsActivity.class);
             //Check if GPS is ON or OFF
             if(this.getGPSStatus()){
@@ -175,9 +215,9 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
         sourceStation = this.spCurr.getSelectedItem().toString();
-        //System.out.println("source = " + sourceStation);
+        System.out.println("source = " + sourceStation);
         destStation = this.spDest.getSelectedItem().toString();
-        //System.out.println("destination = " + destStation);
+        System.out.println("destination = " + destStation);
     }
 
     @Override

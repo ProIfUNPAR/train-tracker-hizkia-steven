@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected Button btnNext;
     protected Spinner spTrains;
     protected String[] listOfTrains;
-    public static String activeTrain;
-    public static boolean isArrival;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +55,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         trainsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTrains.setAdapter(trainsAdapter);
 
+        if(!Database.activeTrain.equalsIgnoreCase("") && Database.activeTrain != null){
+            int spinnerPosition = trainsAdapter.getPosition(Database.activeTrain);
+            System.out.println("position : "+spinnerPosition);
+            spTrains.setSelection(spinnerPosition);
+        }
+
         //SET LISTENER FOR SPINNER
         spTrains.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
                 //System.out.println(spTrains.getSelectedItem().toString());
-
                 String selectedTrain = spTrains.getSelectedItem().toString();
                 if(selectedTrain.indexOf("|")!= -1 && selectedTrain.indexOf("-")!= -1){
                     String asal = selectedTrain.substring(selectedTrain.indexOf("|")+2,selectedTrain.indexOf("-")-1); //+1 because in a code it has a space
@@ -86,10 +89,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //SET ALL ADAPTER END
 
         //SET INITIAL RADIO BUTTON
-        this.rbStart.setChecked(true);
-        this.rbEnd.setChecked(false);
-        //SET INITIAL ATTRIBUTE isArrival
-        isArrival = false;
+        if(Database.isArrival){
+            this.rbEnd.setChecked(true);
+            this.rbStart.setChecked(false);
+        }else{
+            this.rbStart.setChecked(true);
+            this.rbEnd.setChecked(false);
+        }
     }
 
     //PUT EVERY ONCLICK FUNCTION HERE
@@ -100,8 +106,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Go to Tracks page
         if(view.getId() == btnNext.getId()){
             String text = spTrains.getSelectedItem().toString();
-            System.out.println(text);
-            activeTrain = text;
+            Database.activeTrain = text;
+            System.out.println(Database.activeTrain);
 
             Intent openTracks = new Intent(this, TracksActivity.class);
             startActivity(openTracks);
@@ -119,11 +125,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(view.getId()){
             case R.id.rbStart:
                 if(checked)
-                isArrival = false;
+                Database.isArrival = false;
                 break;
             case R.id.rbEnd:
                 if(checked)
-                isArrival = true;
+                Database.isArrival = true;
                 break;
         }
     }
@@ -131,8 +137,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed(){
-        moveTaskToBack(true);
-        android.os.Process.killProcess(android.os.Process.myPid());
+        //moveTaskToBack(true);
+        //android.os.Process.killProcess(android.os.Process.myPid());
+        //System.exit(1);
+
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
         System.exit(1);
     }
 

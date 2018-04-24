@@ -16,6 +16,10 @@ public class Database {
     private String[] listOfTrains;
     private int ctList; // counter for number of trains
 
+    public static String activeTrain = "";
+    public static boolean isArrival = false;
+    public static int idxSpCur = -1, idxSpDest = -1;
+
     public Database(){
         //this.trains = new ArrayList<>();
         this.listOfTrains = new String [27]; // initial value : set length of list is 50 trains
@@ -26,6 +30,19 @@ public class Database {
         initStation();
         //train
         initTrain();
+
+        /*
+        //SET INITIAL ATTRIBUTE isArrival
+        if(activeTrain == null){
+            activeTrain = "";
+            //SET INITIAL ATTRIBUTE isArrival
+            isArrival = false;
+        }
+        //SET INITIAL ATTRIBUTE idxSpCur
+        idxSpCur = -1;
+        //SET INITIAL ATTRIBUTE idxSpDest
+        idxSpDest = -1;
+        */
     }
 
     public static Station getStationInfo (String nameOfStation){
@@ -977,10 +994,10 @@ public class Database {
         ArrayList<Station> fullTrack;
         if(optionTrack == 0){
             //departure track
-            fullTrack = trainInfo.get(MainActivity.activeTrain).departureTrack;
+            fullTrack = trainInfo.get(activeTrain).departureTrack;
         }else{
             //arrival track
-            fullTrack = trainInfo.get(MainActivity.activeTrain).arrivalTrack;
+            fullTrack = trainInfo.get(activeTrain).arrivalTrack;
         }
         //TAKE STATIONS THAT ARE ONLY PASSED FROM START STATION TO END STATION OF ALL STATIONS
         int i;
