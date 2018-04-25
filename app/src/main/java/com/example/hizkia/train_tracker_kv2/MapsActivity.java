@@ -57,7 +57,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String sourceStation, destStation;
     private ArrayList<Station> listStations;
     private int ct;
-    private static final int JARAK_ASUMSI_SAMPAI = 1;
+    private static final double DESTINATION_PERIMETER = 10;
 
     private Polyline line;
     private PolylineOptions lineOpt;
@@ -177,12 +177,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     tempLocation2.setLatitude(temp2.getLatitude());
                     tempLocation2.setLongitude(temp2.getLongitude());
 
-                    totalDistance += calculateDistance(tempLocation1, tempLocation2);
+                    totalDistance += (calculateDistance(tempLocation1, tempLocation2));
                 }
 
                 txtStation.setText(listStations.get(listStations.size() - 1).getNamaStasiun());
-                tvDistance.setText(String.format("%.1f", totalDistance));
-                tvEta.setText(calculateETA(30, totalDistance));
+                tvDistance.setText(getDistance(totalDistance));
+                tvEta.setText(calculateETA(30, totalDistance / 1000));
 
                 if(ct == 0) {
                     tempLocation1 = new Location("");
@@ -196,8 +196,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     float initialDistance = calculateDistance(tempLocation1, tempLocation2);
 
                     txtStationNext.setText(listStations.get(1).getNamaStasiun());
-                    tvDistanceNext.setText(String.format("%.1f", initialDistance));
-                    tvEtaNext.setText(calculateETA(30, initialDistance));
+                    tvDistanceNext.setText(getDistance(initialDistance));
+                    tvEtaNext.setText(calculateETA(30, initialDistance / 1000));
                 }
 
                 LocationManager locManager = (LocationManager) this
@@ -221,11 +221,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             float distanceCurr = calculateDistance(currLocation, tempLocation1);
 
                             if(ct > 0){
-                                tvDistanceNext.setText(String.format("%.1f", distanceCurr));
-                                tvEtaNext.setText(calculateETA(speed, distanceCurr));
+                                tvDistanceNext.setText(getDistance(distanceCurr));
+                                tvEtaNext.setText(calculateETA(speed, distanceCurr / 1000));
                             }
 
-                            if (distanceCurr <= JARAK_ASUMSI_SAMPAI && ct < listStations.size()) {
+                            if (distanceCurr <= DESTINATION_PERIMETER && ct < listStations.size()) {
                                 ct++;
                                 if (ct == listStations.size()) {
                                     notificationCall("Your train has arrived!");
@@ -238,13 +238,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     tempLocation2.setLongitude(nextStation.getLongitude());
                                     tempLocation2.setLatitude(nextStation.getLatitude());
 
-                                    totalDistance = totalDistance - calculateDistance(tempLocation1, tempLocation2);
+                                    float distanceToNext = calculateDistance(tempLocation1, tempLocation2);
+                                    totalDistance = totalDistance - distanceToNext;
+                                    distanceCurr = distanceCurr + distanceToNext;
                                 }
                             }
                             float distance = totalDistance + distanceCurr;
-                            tvDistance.setText(String.format("%.1f", distance));
+                            tvDistance.setText(getDistance(distance));
 
-                            String eta = calculateETA(speed, distance);
+                            String eta = calculateETA(speed, distance / 1000);
                             tvEta.setText(eta);
                         }
                     }
@@ -348,7 +350,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public float calculateDistance(Location loc1, Location loc2){
-        return loc1.distanceTo(loc2) / 1000;
+        return loc1.distanceTo(loc2);
+    }
+
+    public String getDistance(float distance){
+        String res;
+        if(distance > 1000) res = String.format("%.1f", distance / 1000);
+        else res = String.format("%.1f", distance);
+        return res;
     }
 
     public String calculateETA(float speed, float distance){
