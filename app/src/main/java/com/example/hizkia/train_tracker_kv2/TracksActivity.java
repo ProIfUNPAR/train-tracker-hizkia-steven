@@ -124,6 +124,7 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
                 int idxCurr = spCurr.getSelectedItemPosition();
+                int idxSpCurTemp = Database.idxSpCur;
                 Database.idxSpCur = idxCurr;
                 Log.d("idxSpCur", Database.idxSpCur + "");
 
@@ -139,7 +140,13 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
                         android.R.layout.simple_spinner_item,arrStationChange);
                 destAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spDest.setAdapter(destAdapt);
-                spDest.setSelection(spDest.getAdapter().getCount()-1); //set destination do last station
+                if(Database.idxSpDest != -1) {
+                    Database.idxSpDest = idxSpCurTemp - Database.idxSpCur + Database.idxSpDest;
+                    spDest.setSelection(Database.idxSpDest);
+                }
+                /*else{
+                    spDest.setSelection(spDest.getAdapter().getCount()-1); //set destination do last station
+                }*/
             }
 
             @Override
