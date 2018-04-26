@@ -68,6 +68,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
         getLocationPermission();
 
+        Log.d("MapsActivity", "maps initialised");
+
         this.tvSpeed = this.findViewById(R.id.valueSpeed);
         this.tvDistance = this.findViewById(R.id.valueDistance);
         this.tvEta = this.findViewById(R.id.valueETA);
@@ -75,7 +77,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.tvDistanceNext = this.findViewById(R.id.valueDistanceNext);
         this.tvEtaNext = this.findViewById(R.id.valueETANext);
         this.txtStationNext = this.findViewById(R.id.txtStationNext);
-
 
         System.out.println(TracksActivity.sourceStation);
 
@@ -365,7 +366,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onBackPressed(){
+        //Intent intent = new Intent(MapsActivity.this, TracksActivity.class);
+        //startActivity(intent);
+
         Intent intent = new Intent(MapsActivity.this, TracksActivity.class);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }

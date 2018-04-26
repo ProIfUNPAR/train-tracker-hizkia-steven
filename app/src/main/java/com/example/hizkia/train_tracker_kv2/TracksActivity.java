@@ -36,6 +36,7 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracks);
 
+        Log.d("TracksActivity", "tracks initialised");
 
         //SET ID FROM LAYOUT START
         this.btnGoMap = this.findViewById(R.id.btnGoMap);
@@ -55,16 +56,15 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
         //SET LISTENER END
 
         //GET list of stations from the chosen train
-        Database db = new Database();
         Log.d("idxSpCurInit", Database.idxSpCur + "");
         Log.d("idxSpDestInit", Database.idxSpDest + "");
         ArrayList<Station>  listStations;
         if(Database.isArrival){
             System.out.println("di sini :"+ Database.activeTrain);
-            listStations = db.getTrainInfo(Database.activeTrain).arrivalTrack;
+            listStations = MainActivity.db.getTrainInfo(Database.activeTrain).arrivalTrack;
         }else{
             System.out.println("di sini :"+ Database.activeTrain);
-            listStations = db.getTrainInfo(Database.activeTrain).departureTrack;
+            listStations = MainActivity.db.getTrainInfo(Database.activeTrain).departureTrack;
         }
 
         //move each name of station on list stations to array of string
@@ -244,7 +244,13 @@ public class TracksActivity extends AppCompatActivity implements View.OnClickLis
     //Back to activity_main using device's back button
     @Override
     public void onBackPressed(){
+        //Intent intent = new Intent(TracksActivity.this, MainActivity.class);
+        //startActivity(intent);
+
         Intent intent = new Intent(TracksActivity.this, MainActivity.class);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }
