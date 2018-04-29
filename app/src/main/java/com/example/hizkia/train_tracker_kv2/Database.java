@@ -164,7 +164,7 @@ public class Database {
         stationInfo.put("Stasiun Unpar",new Station("Stasiun Unpar",-6.873485, 107.604630));
         stationInfo.put("Stasiun Ciwalk",new Station("Stasiun Ciwalk",-6.893640, 107.605595));
         stationInfo.put("Stasiun Istana Plaza", new Station("Stasiun Istana Plaza", -6.905661, 107.596791));
-        stationInfo.put("Stasiun Haris", new Station("Stasiun Haris", -6.905661, 107.596791));
+        stationInfo.put("Stasiun Haris", new Station("Stasiun Haris", -6.880705, 107.604186));
     }
 
     public void initTrain(){
@@ -475,11 +475,13 @@ public class Database {
         //train testing
         Train testing = new Train ("testing");
         testing.addDepartureTrack(stationInfo.get("Stasiun Unpar"));
+        testing.addDepartureTrack(stationInfo.get("Stasiun Haris"));
         testing.addDepartureTrack(stationInfo.get("Stasiun Ciwalk"));
         testing.addDepartureTrack(stationInfo.get("Stasiun Istana Plaza"));
 
         testing.addArrivalTrack((stationInfo.get("Stasiun Istana Plaza")));
         testing.addArrivalTrack((stationInfo.get("Stasiun Ciwalk")));
+        testing.addArrivalTrack(stationInfo.get("Stasiun Haris"));
         testing.addArrivalTrack((stationInfo.get("Stasiun Unpar")));
 
         trainInfo.put("testing | Unpar - Istana Plaza",testing);
