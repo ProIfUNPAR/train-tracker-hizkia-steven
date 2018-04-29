@@ -51,7 +51,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
-    private TextView tvDistance, tvEta, tvSpeed, txtStation, tvDistanceNext, tvEtaNext, txtStationNext;
+    private TextView tvDistance, tvEta, tvSpeed, txtStation, tvDistanceNext, tvEtaNext, txtStationNext, txtKM, txtKMNext;
     private Location tempLocation1, tempLocation2, currLocation;
     private float totalDistance;
     private String sourceStation, destStation;
@@ -72,10 +72,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.tvDistance = this.findViewById(R.id.valueDistance);
         this.tvEta = this.findViewById(R.id.valueETA);
         this.txtStation = this.findViewById(R.id.txtStationDetail);
+        this.txtKM = this.findViewById(R.id.textKM);
         this.tvDistanceNext = this.findViewById(R.id.valueDistanceNext);
         this.tvEtaNext = this.findViewById(R.id.valueETANext);
         this.txtStationNext = this.findViewById(R.id.txtStationNext);
-
+        this.txtKMNext = this.findViewById(R.id.textKMNext);
 
         System.out.println(TracksActivity.sourceStation);
 
@@ -182,6 +183,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 txtStation.setText(listStations.get(listStations.size() - 1).getNamaStasiun());
                 tvDistance.setText(getDistance(totalDistance));
+                if(totalDistance < 1000){
+                    txtKM.setText("M");
+                } else {
+                    txtKM.setText("KM");
+                }
                 tvEta.setText(calculateETA(30, totalDistance / 1000));
 
                 if(ct == 0) {
@@ -197,6 +203,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     txtStationNext.setText(listStations.get(1).getNamaStasiun());
                     tvDistanceNext.setText(getDistance(initialDistance));
+                    if(initialDistance < 1000){
+                        txtKMNext.setText("M");
+                    } else {
+                        txtKMNext.setText("KM");
+                    }
                     tvEtaNext.setText(calculateETA(30, initialDistance / 1000));
                 }
 
@@ -222,6 +233,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             if(ct > 0){
                                 tvDistanceNext.setText(getDistance(distanceCurr));
+                                if(distanceCurr < 1000){
+                                    txtKMNext.setText("M");
+                                } else {
+                                    txtKMNext.setText("KM");
+                                }
                                 tvEtaNext.setText(calculateETA(speed, distanceCurr / 1000));
                             }
 
@@ -245,6 +261,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             }
                             float distance = totalDistance + distanceCurr;
                             tvDistance.setText(getDistance(distance));
+                            if(distance < 1000){
+                                txtKM.setText("M");
+                            } else {
+                                txtKM.setText("KM");
+                            }
 
                             String eta = calculateETA(speed, distance / 1000);
                             tvEta.setText(eta);
