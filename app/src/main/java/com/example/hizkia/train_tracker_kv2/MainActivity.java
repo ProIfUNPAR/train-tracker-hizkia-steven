@@ -27,11 +27,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected Button btnNext;
     protected Spinner spTrains;
     protected String[] listOfTrains;
+    protected static Database db = new Database();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.d("MainActivity", "main initialised");
 
         //SET ID FROM LAYOUT START
         this.btnNext = findViewById(R.id.btnNext);
@@ -45,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //SET LISTENER END
 
         //GET NAMES OF ALL THE TRAINS WHICH HAVE A TRACK
-        Database db = new Database();
         this.listOfTrains = db.getListOfTrains();
 
         //SET ALL ADAPTER START
@@ -96,6 +98,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.rbStart.setChecked(true);
             this.rbEnd.setChecked(false);
         }
+
+        Database.idxSpCur = -1;
+        Database.idxSpDest = -1;
     }
 
     //PUT EVERY ONCLICK FUNCTION HERE

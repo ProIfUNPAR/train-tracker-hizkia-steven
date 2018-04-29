@@ -1,6 +1,8 @@
 package com.example.hizkia.train_tracker_kv2;
 
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeMap;
@@ -30,6 +32,8 @@ public class Database {
         initStation();
         //train
         initTrain();
+
+        Log.d("Database", "database initialised");
 
         /*
         //SET INITIAL ATTRIBUTE isArrival
