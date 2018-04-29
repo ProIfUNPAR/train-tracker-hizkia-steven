@@ -295,7 +295,7 @@ public class Database {
         tegalBahari.addArrivalTrack(stationInfo.get("Stasiun Jatibarang"));
         tegalBahari.addArrivalTrack(stationInfo.get("Stasiun Cirebon"));
         tegalBahari.addArrivalTrack(stationInfo.get("Stasiun Babakan"));
-        tegalBahari.addArrivalTrack(stationInfo.get("Stasiun Loasri"));
+        tegalBahari.addArrivalTrack(stationInfo.get("Stasiun Losari"));
         tegalBahari.addArrivalTrack(stationInfo.get("Stasiun Tanjung"));
         tegalBahari.addArrivalTrack(stationInfo.get("Stasiun Brebes"));
         tegalBahari.addArrivalTrack(stationInfo.get("Stasiun Tegal"));;
@@ -359,7 +359,7 @@ public class Database {
         ranggajatiEkspres.addArrivalTrack(stationInfo.get("Stasiun Rambipuji"));
         ranggajatiEkspres.addArrivalTrack(stationInfo.get("Stasiun Tanggul"));
         ranggajatiEkspres.addArrivalTrack(stationInfo.get("Stasiun Klakah"));
-        ranggajatiEkspres.addArrivalTrack(stationInfo.get("Stasiun Prbolinggo"));
+        ranggajatiEkspres.addArrivalTrack(stationInfo.get("Stasiun Probolinggo"));
         ranggajatiEkspres.addArrivalTrack(stationInfo.get("Stasiun Bangil"));
         ranggajatiEkspres.addArrivalTrack(stationInfo.get("Stasiun Sidoarjo"));
         ranggajatiEkspres.addArrivalTrack(stationInfo.get("Stasiun Surabaya Gubeng"));
@@ -791,7 +791,7 @@ public class Database {
         gajayana.addArrivalTrack(stationInfo.get("Stasiun Blitar"));
         gajayana.addArrivalTrack(stationInfo.get("Stasiun Wlingi"));
         gajayana.addArrivalTrack(stationInfo.get("Stasiun Kepanjen"));
-        gajayana.addArrivalTrack(stationInfo.get("Stasiun Malang Kotolama"));
+        gajayana.addArrivalTrack(stationInfo.get("Stasiun Malang Kotalama"));
         gajayana.addArrivalTrack(stationInfo.get("Stasiun Malang"));
 
         trainInfo.put("Gajayana | Malang - Gambir", gajayana);

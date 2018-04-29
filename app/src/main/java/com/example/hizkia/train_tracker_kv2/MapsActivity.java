@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,7 +12,6 @@ import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
@@ -22,6 +20,15 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akexorcist.googledirection.DirectionCallback;
+import com.akexorcist.googledirection.GoogleDirection;
+import com.akexorcist.googledirection.constant.AvoidType;
+import com.akexorcist.googledirection.constant.TransitMode;
+import com.akexorcist.googledirection.constant.TransportMode;
+import com.akexorcist.googledirection.model.Direction;
+import com.akexorcist.googledirection.model.Leg;
+import com.akexorcist.googledirection.model.Route;
+import com.akexorcist.googledirection.util.DirectionConverter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -37,6 +44,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -45,7 +54,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQ_CODE = 1234;
-    private static final float DEFAULT_ZOOM = 15f;
+    private static final float DEFAULT_ZOOM = 7f;
 
     private Boolean locationPermissionGranted = false;
     private GoogleMap mMap;
@@ -96,7 +105,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Toast.makeText(this, "Map is Ready", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "onMapReady: Map is Ready");
         mMap = googleMap;
-        lineOpt =new PolylineOptions();
+        lineOpt = new PolylineOptions();
+        ArrayList<LatLng> waypoints = new ArrayList<LatLng>();
 
         if (locationPermissionGranted) {
 
@@ -129,7 +139,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.addMarker(new MarkerOptions().position(addStation).title(temp.getNamaStasiun())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker)));
                 lineOpt.add(addStation);
-
+                waypoints.add(addStation);
             }
 
             Station endStation = Database.getStationInfo(this.destStation);
@@ -138,7 +148,36 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             lineOpt.add(end);
 
             lineOpt.color(R.color.blue);
-            line = mMap.addPolyline(lineOpt);
+
+            GoogleDirection.withServerKey("AIzaSyCyz3OcWxsxZZFyAJZ-lL_9evMRKWwD72g")
+                    .from(start)
+                    .and(waypoints)
+                    .to(end)
+                    .transportMode(TransportMode.TRANSIT)
+                    .transitMode(TransitMode.TRAIN)
+                    .avoid(AvoidType.TOLLS)
+                    .avoid(AvoidType.HIGHWAYS)
+                    .avoid(AvoidType.FERRIES)
+                    .avoid(AvoidType.INDOOR)
+                    .execute(new DirectionCallback() {
+                        @Override
+                        public void onDirectionSuccess(Direction direction, String rawBody) {
+                            if(direction.isOK()){
+                                Route route = direction.getRouteList().get(0);
+                                Leg leg = route.getLegList().get(0);
+                                ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
+                                PolylineOptions polylineOptions = DirectionConverter.createPolyline(MapsActivity.this, directionPositionList, 5, R.color.blue);
+                                mMap.addPolyline(polylineOptions);
+                            } else {
+                                line = mMap.addPolyline(lineOpt);
+                            }
+                        }
+
+                        @Override
+                        public void onDirectionFailure(Throwable t) {
+                            Toast.makeText(MapsActivity.this, "No Routes Found", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
             getDeviceLocation(listStations);
 

@@ -46,7 +46,7 @@ public class AutomatedTest {
         // open train's spinner
         Espresso.onView(withId(R.id.spinnerTrains)).perform(click());
         SystemClock.sleep(1500);
-        Espresso.onData(allOf(is(instanceOf(String.class)), is("Bima | Malang - Gambir"))).perform(click());
+        Espresso.onData(allOf(is(instanceOf(String.class)), is("Argo Parahyangan | Bandung - Gambir"))).perform(click());
         SystemClock.sleep(1500);
 
         // close train's spinner
@@ -58,13 +58,13 @@ public class AutomatedTest {
         //on trackActivity choose start station and end station
         Espresso.onView(withId(R.id.spinnerCurrent)).perform(click());
         SystemClock.sleep(1000);
-        Espresso.onData(allOf(is(instanceOf(String.class)), is("Stasiun Sidoarjo"))).perform(click());
+        Espresso.onData(allOf(is(instanceOf(String.class)), is("Stasiun Purwakarta"))).perform(click());
         SystemClock.sleep(1000);
 
 
         Espresso.onView(withId(R.id.spinnerDestination)).perform(click());
         SystemClock.sleep(1000);
-        Espresso.onData(allOf(is(instanceOf(String.class)), is("Stasiun Cirebon"))).perform(click());
+        Espresso.onData(allOf(is(instanceOf(String.class)), is("Stasiun Gambir"))).perform(click());
         SystemClock.sleep(1000);
 
         // click button go to mapActivity
