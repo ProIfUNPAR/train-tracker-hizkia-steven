@@ -44,8 +44,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -475,7 +473,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         int second = (int)(((eta % 1) * 3600) % 60);
         int minute = (int)((eta % 1) * 60 ) % 60;
         int hour = (int)(eta);
-        String resultTimeText = String.format("%02d H : %02d M : %02d S",hour, minute, second);
+        String resultTimeText = String.format("%02d H : %02d M",hour, minute);
         return resultTimeText;
     }
 
