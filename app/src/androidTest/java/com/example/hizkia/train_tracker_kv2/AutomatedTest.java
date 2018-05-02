@@ -36,7 +36,7 @@ public class AutomatedTest {
     }
 
     /**
-     * Test case for train "Bima | Malang - Gambir" from "Stasiun Sidoarjo" to "Stasiun Cirebon"
+     * Test case for train "Argo Parahyangan | Bandung - Gambir" from "Stasiun Purwakarta" to "Stasiun Gambir"
      */
     @Test
     public void testRun() throws Exception{
