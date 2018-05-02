@@ -15,7 +15,7 @@ Google Maps API
 How to install Train Tracker KV2 :
 
 ```
-1. Download the APK from https://bit.ly/2w11ljo
+1. Download the APK from https://bit.ly/2HPmmPH
 2. Run the APK file (Train Tracker KV2.apk)
 3. Start to install the application
 4. Run Train Tracker KV2 application
