@@ -89,12 +89,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.txtStationNext = this.findViewById(R.id.txtStationNext);
         this.txtKMNext = this.findViewById(R.id.textKMNext);
 
-      System.out.println(TracksActivity.sourceStation);
+        System.out.println(TracksActivity.sourceStation);
 
         this.sourceStation = TracksActivity.sourceStation;
         this.destStation = TracksActivity.destStation;
         //this.txtStation.setText(this.sourceStation + " - "+ this.destStation);
-
 
         this.totalDistance = 0;
         this.ct = 0;
@@ -106,7 +105,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Log.d(TAG, "onMapReady: Map is Ready");
         mMap = googleMap;
         lineOpt = new PolylineOptions();
-        ArrayList<LatLng> waypoints = new ArrayList<LatLng>();
 
         if (locationPermissionGranted) {
 
@@ -139,7 +137,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.addMarker(new MarkerOptions().position(addStation).title(temp.getNamaStasiun())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker)));
                 lineOpt.add(addStation);
-                waypoints.add(addStation);
             }
 
             Station endStation = Database.getStationInfo(this.destStation);
@@ -149,35 +146,83 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             lineOpt.color(R.color.blue);
 
-            GoogleDirection.withServerKey("AIzaSyCyz3OcWxsxZZFyAJZ-lL_9evMRKWwD72g")
-                    .from(start)
-                    .and(waypoints)
-                    .to(end)
-                    .transportMode(TransportMode.TRANSIT)
-                    .transitMode(TransitMode.TRAIN)
-                    .avoid(AvoidType.TOLLS)
-                    .avoid(AvoidType.HIGHWAYS)
-                    .avoid(AvoidType.FERRIES)
-                    .avoid(AvoidType.INDOOR)
-                    .execute(new DirectionCallback() {
-                        @Override
-                        public void onDirectionSuccess(Direction direction, String rawBody) {
-                            if(direction.isOK()){
-                                Route route = direction.getRouteList().get(0);
-                                Leg leg = route.getLegList().get(0);
-                                ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
-                                PolylineOptions polylineOptions = DirectionConverter.createPolyline(MapsActivity.this, directionPositionList, 5, R.color.blue);
-                                mMap.addPolyline(polylineOptions);
-                            } else {
-                                line = mMap.addPolyline(lineOpt);
-                            }
-                        }
+            for(i=1; i<listStations.size(); i++){
+                if(i == 1) {
+                    Station temp = listStations.get(i);
+                    LatLng stationTo = new LatLng( temp.getLatitude(),temp.getLongitude());
 
-                        @Override
-                        public void onDirectionFailure(Throwable t) {
-                            Toast.makeText(MapsActivity.this, "No Routes Found", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    GoogleDirection.withServerKey("AIzaSyCyz3OcWxsxZZFyAJZ-lL_9evMRKWwD72g")
+                            .from(start)
+                            .to(stationTo)
+                            .transportMode(TransportMode.TRANSIT)
+                            .transitMode(TransitMode.TRAIN)
+                            .avoid(AvoidType.TOLLS)
+                            .avoid(AvoidType.HIGHWAYS)
+                            .avoid(AvoidType.FERRIES)
+                            .avoid(AvoidType.INDOOR)
+                            .execute(new DirectionCallback() {
+                                @Override
+                                public void onDirectionSuccess(Direction direction, String rawBody) {
+                                    if (direction.isOK()) {
+                                        Route route = direction.getRouteList().get(0);
+                                        Leg leg = route.getLegList().get(0);
+                                        ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
+                                        PolylineOptions polylineOptions = DirectionConverter.createPolyline(MapsActivity.this, directionPositionList, 5, R.color.blue);
+                                        mMap.addPolyline(polylineOptions);
+                                        Log.d("DEBUG", "MESSAGE_1: " + direction.getStatus());
+                                        Log.d("DEBUG", "AVAIABLE_1" + direction.getRouteList());
+                                    } else {
+//                                        line = mMap.addPolyline(lineOpt);
+                                        Log.d("DEBUG", "MESSAGE_2: " + direction.getStatus());
+                                        Log.d("DEBUG", "AVAIABLE_2" + direction.getRouteList());
+                                    }
+                                }
+
+                                @Override
+                                public void onDirectionFailure(Throwable t) {
+                                    Toast.makeText(MapsActivity.this, "No Routes Found", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else {
+                    Station tempStart = listStations.get(i-1);
+                    Station tempTo = listStations.get(i);
+                    LatLng stationStart = new LatLng( tempStart.getLatitude(),tempStart.getLongitude());
+                    LatLng stationTo = new LatLng( tempTo.getLatitude(),tempTo.getLongitude());
+
+                    GoogleDirection.withServerKey("AIzaSyCyz3OcWxsxZZFyAJZ-lL_9evMRKWwD72g")
+                            .from(stationStart)
+                            .to(stationTo)
+                            .transportMode(TransportMode.TRANSIT)
+                            .transitMode(TransitMode.TRAIN)
+                            .avoid(AvoidType.TOLLS)
+                            .avoid(AvoidType.HIGHWAYS)
+                            .avoid(AvoidType.FERRIES)
+                            .avoid(AvoidType.INDOOR)
+                            .execute(new DirectionCallback() {
+                                @Override
+                                public void onDirectionSuccess(Direction direction, String rawBody) {
+                                    if(direction.isOK()){
+                                        Route route = direction.getRouteList().get(0);
+                                        Leg leg = route.getLegList().get(0);
+                                        ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
+                                        PolylineOptions polylineOptions = DirectionConverter.createPolyline(MapsActivity.this, directionPositionList, 5, R.color.blue);
+                                        mMap.addPolyline(polylineOptions);
+                                        Log.d("DEBUG","MESSAGE_3: " + direction.getStatus());
+                                        Log.d("DEBUG","AVAIABLE_3" + direction.getRouteList());
+                                    } else {
+//                                        line = mMap.addPolyline(lineOpt);
+                                        Log.d("DEBUG","MESSAGE_4: " + direction.getStatus());
+                                        Log.d("DEBUG","AVAIABLE_4" + direction.getRouteList());
+                                    }
+                                }
+
+                                @Override
+                                public void onDirectionFailure(Throwable t) {
+                                    Toast.makeText(MapsActivity.this, "No Routes Found", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+            }
 
             getDeviceLocation(listStations);
 
@@ -260,7 +305,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onLocationChanged(Location location) {
                         //location.getLatitude();
                         //Toast.makeText(getApplicationContext(), "Current speed:" + location.getSpeed(),
-                                //Toast.LENGTH_SHORT).show();
+                        //Toast.LENGTH_SHORT).show();
                         if(ct < listStations.size()){
                             currLocation = location;
                             float speed = calculateSpeed();
